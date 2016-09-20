@@ -1,10 +1,13 @@
 Package: divr
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Custom Functions from ECOPAR people
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Author@R: c(
+  person("Matthias", "Grenie", email = "matthias.grenie@gmail.com",role = c("aut", "cre")),
+  person("Pierre", "Denelle", email = "pierre.denelle@cefe.cnrs.fr", role = "aut"),
+  person("Jules", "Segrestin", email = "jules.segrestin@cefe.cnrs.fr", role = "aut"),
+  person("Francois", "Vasseur", email = "francois.vasseur@cefe.cnrs.fr", role = "aut"))
+Description: Contains random functions useful for us
+License: MIT
 LazyData: TRUE
 RoxygenNote: 5.0.1
