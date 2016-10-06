@@ -1,10 +1,10 @@
 #' Operator to see if value between values of vector
 #'
-#' Custom operator that takes a value and a numeric vector, returns \code{TRUE}
-#' if values between minimum and maximum of vector.
+#' Custom operator that takes a single value or a numeric vector and returns \code{TRUE}
+#' if values between minimum and maximum of a given vector.
 #'
-#' @usage  x %btw% vec
-#' @usage x %sbtw% vec
+#' @usage x \%btw\% vec
+#' @usage x \%sbtw\% vec
 #'
 #' @param x a numeric value or vector
 #' @param vec a numeric vector
@@ -23,6 +23,9 @@
 "%btw%" <- function(x, vec) {
   (x >= min(vec, na.rm=TRUE)) & (x <= max(vec, na.rm=TRUE))
 }
+
+#' @rdname grapes-btw-grapes
+#' @export
 
 "%sbtw%"<-function (x, vec) {
   (x > min(vec, na.rm=TRUE)) & (x < max(vec, na.rm=TRUE))
