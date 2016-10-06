@@ -4,7 +4,7 @@
 \alias{vioplotGP}
 \title{Violon plots for Groups}
 \usage{
-vioplot(x, gp, weights, ...)
+vioplotGP(x, gp, weights, ...)
 }
 \arguments{
 \item{x}{a numeric vector of data}
@@ -29,11 +29,13 @@ vioplot(x, gp, weights, ...)
 
 \item{fill}{the color of the distribution area}
 
-\item{pts}{logical value for adding x data on the curve distrivution}
+\item{pts}{logical value for adding x data on the distribution curve}
 
 \item{boxplot.fill}{the color of the boxplot}
 
 \item{horizontal}{logical value}
+
+\item{...}{graphic parameters see par()}
 }
 \description{
 Produce a violon plot acording to groups taking into acount weightings and compute comparison tests
@@ -42,8 +44,8 @@ Produce a violon plot acording to groups taking into acount weightings and compu
 
 data("ChickWeight")
 vioplotGP(x = chickwts$weight, gp= chickwts$feed, las=2, horizontal = F, side="both",
-wex=.4, fill="grey70", boxplot.fill="grey30", xlab="Chick weights (mg)", Test="tukey",
-pos.letters = 2, col.letters = "white")
+           wex=.4, fill="grey70", boxplot.fill="grey30", xlab="Chick weights (mg)", Test="tukey",
+           pos.letters = 3, col.letters = "white", col.points = "grey70")
 
 }
 \seealso{

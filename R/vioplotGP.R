@@ -2,7 +2,7 @@
 #'
 #' Produce a violon plot acording to groups taking into acount weightings and compute comparison tests
 #'
-#' @usage vioplot(x, gp, weights, ...)
+#' @usage vioplotGP(x, gp, weights, ...)
 #'
 #' @param x a numeric vector of data
 #' @param gp factors with the same length as x decribing groups
@@ -16,15 +16,16 @@
 #' @param side a character value describind if the distribution should be drawn in the "above", "below", "right", "left" or "both" side(s)
 #' @param fill the color of the distribution area
 #' @param boxplot.fill the color of the boxplot
-#' @param pts logical value for adding x data on the curve distrivution
+#' @param pts logical value for adding x data on the distribution curve
 #' @param horizontal logical value
+#' @param ... graphic parameters see par()
 #'
 #' @examples
 #'
 #' data("ChickWeight")
 #' vioplotGP(x = chickwts$weight, gp= chickwts$feed, las=2, horizontal = F, side="both",
-#' wex=.4, fill="grey70", boxplot.fill="grey30", xlab="Chick weights (mg)", Test="tukey",
-#' pos.letters = 2, col.letters = "white")
+#'            wex=.4, fill="grey70", boxplot.fill="grey30", xlab="Chick weights (mg)", Test="tukey",
+#'            pos.letters = 3, col.letters = "white", col.points = "grey70")
 #'
 #' @seealso
 #'
@@ -34,7 +35,7 @@
 
 vioplotGP<-function(x,gp,weights=NULL,labels=NA,xlab=NA,xlim=NA,ylim=NA,at=NA,wex=.75,
                     h=NA,nblim=10,Test=NA,Testadj=0.01,pos.letters=1,col.letters=1, add=F,col=1,pch=19,lwd=1,
-                    lty=1,cex=1,pcex=1, bg=1, las=0, boxplot=TRUE, side="above", fill=NA,
+                    lty=1,cex=1,cex.points=1, col.points=1, bg=1, las=0, boxplot=TRUE, side="above", fill=NA,
                     pts=TRUE, boxplot.fill="white", horizontal=TRUE){
 
   # check
@@ -163,7 +164,8 @@ vioplotGP<-function(x,gp,weights=NULL,labels=NA,xlab=NA,xlim=NA,ylim=NA,at=NA,we
   pch<-rep(pch,length.out=ngp)
   lwd<-rep(lwd,length.out=ngp)
   lty<-rep(lty,length.out=ngp)
-  pcex<-rep(pcex,length.out=ngp)
+  cex.points<-rep(cex.points,length.out=ngp)
+  col.points<-rep(col.points,length.out=ngp)
   bg<-rep(bg,length.out=ngp)
   side<-rep(side,length.out=ngp)
   fill<-rep(fill,length.out=ngp)
@@ -174,8 +176,8 @@ vioplotGP<-function(x,gp,weights=NULL,labels=NA,xlab=NA,xlim=NA,ylim=NA,at=NA,we
   hi<-NULL
   for (i in 1:ngp){
     hi<-c(hi,vioplot(xgp[[i]],weights=wgp[[i]], wex=wex[i], h=h[i], add=T,
-                     nblim=nblim, at=at[i], pch=pch[i], lwd=lwd[i],col=col[i],
-                     lty=lty[i], cex=pcex[i], bg=bg[i], boxplot = boxplot,
+                     nblim=nblim, at=at[i], pch=pch[i], lwd=lwd[i],col=col[i], col.points=col.points[i],
+                     lty=lty[i], cex=cex.points[i], bg=bg[i], boxplot = boxplot,
                      side=side[i], fill=fill[i], pts=pts[i],boxplot.fill = boxplot.fill[i],
                      horizontal = horizontal))
     if (testdone){

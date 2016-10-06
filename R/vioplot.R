@@ -29,7 +29,7 @@
 #' @export
 
 vioplot<-function(x, weights=NULL, xlim=NA, ylim=NA, xlab=NA,label="none", wex=.75, h=NA, add=F, nblim=10, at=1, pch=19,
-                  lwd=1,col=1,lty=1,cex=1, las=0, boxplot=TRUE, bg=1, side="above", fill=NA, pts=TRUE, boxplot.fill="white",
+                  lwd=1,col=1, col.points=1, lty=1,cex=1, las=0, boxplot=TRUE, bg=1, side="above", fill=NA, pts=TRUE, boxplot.fill="white",
                   horizontal=TRUE){
   # weights
   w<-weights
@@ -111,14 +111,14 @@ vioplot<-function(x, weights=NULL, xlim=NA, ylim=NA, xlab=NA,label="none", wex=.
       yyd<-mapply(fyy,x)*(wex/max(yy))+at
       if (horizontal){
         if (!is.na(fill)) polygon(c(xx,rev(xx)),c(yy*(wex/max(yy))+at,rep(at,length(xx))), col = fill, border = NA )
-        if(boxplot) segments(quart[3],at+.05,quart[3],med,col = col)
+        #if(boxplot) segments(quart[3],at+.05,quart[3],med,col = col)
         lines(xx,yy*(wex/max(yy))+at)
-        if (pts) points(x,yyd, bg=bg, cex=2*wcex+.2)
+        if (pts) points(x,yyd, col=col.points, bg=bg, cex=2*wcex+.2)
       }else{
         if (!is.na(fill)) polygon(c(yy*(wex/max(yy))+at,rep(at,length(xx))), c(xx,rev(xx)),col = fill, border = NA )
-        if(boxplot) segments(at+.05,quart[3],med,quart[3],col = col)
+        #if(boxplot) segments(at+.05,quart[3],med,quart[3],col = col)
         lines(yy*(wex/max(yy))+at,xx)
-        if (pts) points(yyd,x,bg=bg, cex=2*wcex+.2)
+        if (pts) points(yyd,x,bg=bg, col=col.points, cex=2*wcex+.2)
       }
     }
     if (side=="below"|side=="left"|side=="both"){
@@ -126,14 +126,14 @@ vioplot<-function(x, weights=NULL, xlim=NA, ylim=NA, xlab=NA,label="none", wex=.
       yyd<-at-mapply(fyy,x)*(wex/max(yy))
       if (horizontal){
         if (!is.na(fill)) polygon(c(xx,rev(xx)),c(at-yy*(wex/max(yy)),rep(at,length(xx))), col = fill, border = NA )
-        if(boxplot) segments(quart[3],at-.05,quart[3],med,col = col)
+        #if(boxplot) segments(quart[3],at-.05,quart[3],med,col = col)
         lines(xx,at-yy*(wex/max(yy)))
-        if (pts) points(x,yyd, bg=bg, cex=2*wcex+.2)
+        if (pts) points(x,yyd, bg=bg, col=col.points, cex=2*wcex+.2)
       }else{
         if (!is.na(fill)) polygon(c(at-yy*(wex/max(yy)),rep(at,length(xx))), c(xx,rev(xx)),col = fill, border = NA )
-        if(boxplot) segments(at-.05,quart[3],med,quart[3],col = col)
+        #if(boxplot) segments(at-.05,quart[3],med,quart[3],col = col)
         lines(at-yy*(wex/max(yy)),xx)
-        if (pts) points(yyd,x,bg=bg, cex=2*wcex+.2)
+        if (pts) points(yyd,x,bg=bg, col=col.points, cex=2*wcex+.2)
       }
     }
   }
