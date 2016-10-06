@@ -43,7 +43,6 @@ vioplot<-function(x, weights=NULL, xlim=NA, ylim=NA, xlab=NA,label="none", wex=.
   h=distri$bw
 
   # side
-
   if (!side%in%c("above","below","right","left","both")) stop('side argument should be "above","below", "right", "left" or "both"')
 
   # data descriptors
@@ -84,7 +83,7 @@ vioplot<-function(x, weights=NULL, xlim=NA, ylim=NA, xlab=NA,label="none", wex=.
       }
       if(all(is.na(xlab))){
         title(xlab=deparse(substitute(x)))
-      }else if (xlab!="none"){
+      }else if (any(xlab!="none")){
         title(xlab=xlab)
       }
     }else{
@@ -99,7 +98,7 @@ vioplot<-function(x, weights=NULL, xlim=NA, ylim=NA, xlab=NA,label="none", wex=.
       }
       if(all(is.na(xlab))){
         title(ylab=deparse(substitute(x)))
-      }else if (xlab!="none"){
+      }else if (any(xlab!="none")){
         title(ylab=xlab)
       }
     }
