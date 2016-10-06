@@ -25,7 +25,7 @@
 #' data("ChickWeight")
 #' vioplotGP(x = chickwts$weight, gp= chickwts$feed, las=2, horizontal = F, side="both",
 #'            wex=.4, fill="grey70", boxplot.fill="grey30", xlab="Chick weights (mg)", Test="tukey",
-#'            pos.letters = 3, col.letters = "white", col.points = "grey70")
+#'            pos.letters = 3, col.letters = "white", col.points = "grey50")
 #'
 #' @seealso
 #'
