@@ -2,6 +2,7 @@
 
 export("%btw%")
 export("%sbtw%")
+export(make_quantile_density)
 export(mhead)
 export(nonalength)
 export(vioplot)
