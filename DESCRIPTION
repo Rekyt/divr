@@ -8,7 +8,7 @@ Authors@R: c(
   person("Jules", "Segrestin", email = "jules.segrestin@cefe.cnrs.fr", role = "aut"),
   person("Francois", "Vasseur", email = "francois.vasseur@cefe.cnrs.fr", role = "aut")
   )
-Description: Contains random functions useful for us
+Description: Contains random set functions useful for us.
 License: GPL (>= 2)
 LazyData: TRUE
 URL: https://github.com/Rekyt/divr

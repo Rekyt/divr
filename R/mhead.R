@@ -11,6 +11,7 @@
 #' m <- matrix(rnorm(1000), ncol = 1000)
 #' mhead(m)
 #'
+#' @importFrom utils head
 #' @export
 mhead <- function(given_object, n = 5) {
   head(given_object, n = n)[, 1:n]

@@ -4,7 +4,12 @@
 \alias{vioplotGP}
 \title{Violon plots for Groups}
 \usage{
-vioplotGP(x, gp, weights, ...)
+vioplotGP(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
+  ylim = NA, at = NA, wex = 0.75, h = NA, nblim = 10, Test = NA,
+  Testadj = 0.01, pos.letters = 1, col.letters = 1, add = F, col = 1,
+  pch = 19, lwd = 1, lty = 1, cex = 1, cex.points = 1,
+  col.points = 1, bg = 1, las = 0, boxplot = TRUE, side = "above",
+  fill = NA, pts = TRUE, boxplot.fill = "white", horizontal = TRUE)
 }
 \arguments{
 \item{x}{a numeric vector of data}
@@ -12,6 +17,16 @@ vioplotGP(x, gp, weights, ...)
 \item{gp}{factors with the same length as x decribing groups}
 
 \item{weights}{a numeric vector with the same length as x}
+
+\item{labels}{?}
+
+\item{xlab}{?}
+
+\item{xlim}{?}
+
+\item{ylim}{?}
+
+\item{at}{?}
 
 \item{wex}{the maximum value for the density curve}
 
@@ -21,11 +36,36 @@ vioplotGP(x, gp, weights, ...)
 
 \item{Test}{a character value for group comparison tests "tukey" or "wilcox"}
 
+\item{Testadj}{?}
+
+\item{pos.letters}{?}
+
+\item{col.letters}{?}
+
 \item{add}{if TRUE adds the plot to the current plot window}
+
+\item{col}{?}
+
+\item{pch}{?}
+
+\item{lwd}{?}
+
+\item{lty}{?}
+
+\item{cex}{?}
+
+\item{cex.points}{?}
+
+\item{col.points}{?}
+
+\item{bg}{?}
+
+\item{las}{?}
 
 \item{boxplot}{logical value for adding a boxplot or not}
 
-\item{side}{a character value describind if the distribution should be drawn in the "above", "below", "right", "left" or "both" side(s)}
+\item{side}{a character value describind if the distribution should be drawn
+in the "above", "below", "right", "left" or "both" side(s)}
 
 \item{fill}{the color of the distribution area}
 
@@ -34,8 +74,6 @@ vioplotGP(x, gp, weights, ...)
 \item{boxplot.fill}{the color of the boxplot}
 
 \item{horizontal}{logical value}
-
-\item{...}{graphic parameters see par()}
 }
 \description{
 Produce a violon plot acording to groups taking into acount weightings and compute comparison tests

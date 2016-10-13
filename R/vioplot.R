@@ -2,25 +2,38 @@
 #'
 #' Produce a violon plot taking into acount weightings
 #'
-#' @usage vioplot(x, weights, ...)
-#'
 #' @param x a numeric vector of data
 #' @param weights a numeric vector with the same length as x
+#' @param xlim limit of x in plot
+#' @param ylim limit of y in plot
+#' @param xlab label for x axis
+#' @param label general plot label
 #' @param wex the maximum value for the density curve
 #' @param h the kernel density smoothing parameter
 #' @param add if TRUE adds the plot to the current plot window
 #' @param nblim minimum length of x for computing the kernel density
+#' @param at ?
+#' @param pch points aspect
+#' @param lwd ?
+#' @param col ?
+#' @param col.points ?
+#' @param lty ?
+#' @param cex ?
+#' @param las ?
 #' @param boxplot logical value for adding a boxplot or not
-#' @param side a character value describind if the distribution should be drawn in the "above", "below", "right", "left" or "both" side(s)
+#' @param bg background color
+#' @param side a character value describind if the distribution should be drawn
+#'        in the "above", "below", "right", "left" or "both" side(s)
 #' @param fill the color of the distribution area
-#' @param boxplot.fill the color of the boxplot
 #' @param pts logical value for adding x data on the curve distrivution
+#' @param boxplot.fill the color of the boxplot
 #' @param horizontal logical value
 #'
 #' @examples
 #'
 #' data("ChickWeight")
-#' vioplot(x = chickwts$weight, horizontal = FALSE, side="both", fill="grey70", boxplot.fill="grey30", label = "Weights", xlab = "none")
+#' vioplot(x = chickwts$weight, horizontal = FALSE, side="both", fill="grey70",
+#'         boxplot.fill="grey30", label = "Weights", xlab = "none")
 #'
 #' @seealso
 #'
@@ -28,9 +41,11 @@
 #'
 #' @export
 
-vioplot<-function(x, weights=NULL, xlim=NA, ylim=NA, xlab=NA,label="none", wex=.75, h=NA, add=F, nblim=10, at=1, pch=19,
-                  lwd=1,col=1, col.points=1, lty=1,cex=1, las=0, boxplot=TRUE, bg=1, side="above", fill=NA, pts=TRUE, boxplot.fill="white",
-                  horizontal=TRUE){
+vioplot<-function(x, weights = NULL, xlim = NA, ylim = NA, xlab = NA,
+                  label = "none", wex = .75, h = NA, add = F, nblim = 10, at = 1,
+                  pch = 19, lwd = 1, col = 1, col.points = 1, lty = 1, cex = 1,
+                  las = 0, boxplot = TRUE, bg = 1, side = "above", fill = NA,
+                  pts = TRUE, boxplot.fill = "white", horizontal = TRUE){
   # weights
   w<-weights
   n<-length(x)
