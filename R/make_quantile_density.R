@@ -16,6 +16,7 @@
 #'
 #' gg
 #'
+#' @import stats
 #' @export
 make_quantile_density = function(ex_vector, probs = NULL) {
 
@@ -34,7 +35,8 @@ make_quantile_density = function(ex_vector, probs = NULL) {
     dens_df = with(density(ex_vector), data.frame(x, y))
 
     # Take only "real" parts of the density
-    dens_df = subset(dens_df, x >= quant[[1]], x <= quant[[length(quant)]])
+    dens_df = dens_df[dens_df$x >= quant[[1]] &&
+                        dens_df$x <= quant[[length(quant)]], ]
 
     # Cut the areas based on quantiles
     dens_df$quant = cut(dens_df$x, breaks = quant)
@@ -44,11 +46,16 @@ make_quantile_density = function(ex_vector, probs = NULL) {
     # Generate nice labels '10%-20%', etc.
     qlabels = paste(qname[-length(qname)], qname[-1], sep = "-")
 
-    p_dens_col = ggplot2::ggplot(dens_df, ggplot2::aes(x = x, y = y)) +
-      ggplot2::geom_area(ggplot2::aes(fill = quant)) +
-      ggplot2::geom_line() +
-      ggplot2::scale_fill_brewer(palette = "PuOr", labels = qlabels)
+    if (requireNamespace("ggplot2", quietly = TRUE)) {
+      p_dens_col = ggplot2::ggplot(dens_df, ggplot2::aes_string(x = "x",
+                                                                y = "y")) +
+        ggplot2::geom_area(ggplot2::aes(fill = quant)) +
+        ggplot2::geom_line() +
+        ggplot2::scale_fill_brewer(palette = "PuOr", labels = qlabels)
 
-    return(p_dens_col)
+      return(p_dens_col)
+    } else {
+      stop("'make_quantile_density()' needs package 'ggplot2'")
+    }
   }
 }
