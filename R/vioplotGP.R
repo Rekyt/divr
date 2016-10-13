@@ -39,15 +39,18 @@
 #' @examples
 #'
 #' data("ChickWeight")
-#' vioplotGP(x = chickwts$weight, gp= chickwts$feed, las=2, horizontal = F, side="both",
-#'            wex=.4, fill="grey70", boxplot.fill="grey30", xlab="Chick weights (mg)", Test="tukey",
-#'            pos.letters = 3, col.letters = "white", col.points = "grey50")
+#' vioplotGP(x = chickwts$weight, gp = chickwts$feed, las = 2,
+#'           horizontal = FALSE, side = "both", wex = .4, fill = "grey70",
+#'           boxplot.fill = "grey30", xlab = "Chick weights (mg)",
+#'           Test = "tukey", pos.letters = 3, col.letters = "white",
+#'           col.points = "grey50")
 #'
 #' @seealso
 #'
 #' For group comparison see vioplotGp
 #'
 #' @import graphics stats
+#' @importFrom multcomp glht mcp
 #'
 #' @export
 
@@ -66,7 +69,7 @@ vioplotGP <- function(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
 
   #data descriptors
   ngp <- nlevels(gp)
-  xgp <- mapply(function(X){x[gp==X]},levels(gp))
+  xgp <- mapply(function(X){x[gp == X]},levels(gp))
   if(class(xgp)!="list")xgp <- list(xgp)
   quart <- lapply(xgp,quantile)
 
@@ -112,7 +115,7 @@ vioplotGP <- function(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
   testdone <- FALSE
 
   if (!is.na(Test) & Test == "wilcox"){
-    test <- pairwise.wilcox.test(x, gp, p.adj = "bon")$p.value
+    test <- pairwise.wilcox.test(x, gp, p.adjust.methods = "bon")$p.value
 
     p.values <- cbind(rbind(rep(NA, ngp - 1), test), rep(NA, ngp))
     colnames(p.values) <- levels(gp)
@@ -126,7 +129,6 @@ vioplotGP <- function(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
     stat <- ""
     testdone <- TRUE
   } else if (!is.na(Test) & Test == "tukey") {
-    library(multcomp)
 
     test <- summary(glht(lm(x ~ gp, weights = w), mcp(gp = "Tukey")))$test
 

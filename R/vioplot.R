@@ -39,6 +39,7 @@
 #'
 #' For group comparison see vioplotGp
 #'
+#' @import graphics stats
 #' @export
 
 vioplot<-function(x, weights = NULL, xlim = NA, ylim = NA, xlab = NA,
