@@ -16,6 +16,7 @@
 #'
 #' gg
 #'
+#' @importFrom stats na.omit quantile density
 #' @export
 make_quantile_density = function(ex_vector, probs = NULL) {
 
