@@ -2,7 +2,13 @@
 
 export("%btw%")
 export("%sbtw%")
+export(make_quantile_density)
 export(mhead)
 export(nonalength)
 export(vioplot)
 export(vioplotGP)
+import(graphics)
+import(stats)
+importFrom(multcomp,glht)
+importFrom(multcomp,mcp)
+importFrom(utils,head)

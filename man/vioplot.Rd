@@ -4,12 +4,24 @@
 \alias{vioplot}
 \title{Violon plots}
 \usage{
-vioplot(x, weights, ...)
+vioplot(x, weights = NULL, xlim = NA, ylim = NA, xlab = NA,
+  label = "none", wex = 0.75, h = NA, add = F, nblim = 10, at = 1,
+  pch = 19, lwd = 1, col = 1, col.points = 1, lty = 1, cex = 1,
+  las = 0, boxplot = TRUE, bg = 1, side = "above", fill = NA,
+  pts = TRUE, boxplot.fill = "white", horizontal = TRUE)
 }
 \arguments{
 \item{x}{a numeric vector of data}
 
 \item{weights}{a numeric vector with the same length as x}
+
+\item{xlim}{limit of x in plot}
+
+\item{ylim}{limit of y in plot}
+
+\item{xlab}{label for x axis}
+
+\item{label}{general plot label}
 
 \item{wex}{the maximum value for the density curve}
 
@@ -19,9 +31,28 @@ vioplot(x, weights, ...)
 
 \item{nblim}{minimum length of x for computing the kernel density}
 
+\item{at}{?}
+
+\item{pch}{points aspect}
+
+\item{lwd}{?}
+
+\item{col}{?}
+
+\item{col.points}{?}
+
+\item{lty}{?}
+
+\item{cex}{?}
+
+\item{las}{?}
+
 \item{boxplot}{logical value for adding a boxplot or not}
 
-\item{side}{a character value describind if the distribution should be drawn in the "above", "below", "right", "left" or "both" side(s)}
+\item{bg}{background color}
+
+\item{side}{a character value describind if the distribution should be drawn
+in the "above", "below", "right", "left" or "both" side(s)}
 
 \item{fill}{the color of the distribution area}
 
@@ -37,7 +68,8 @@ Produce a violon plot taking into acount weightings
 \examples{
 
 data("ChickWeight")
-vioplot(x = chickwts$weight, horizontal = FALSE, side="both", fill="grey70", boxplot.fill="grey30", label = "Weights", xlab = "none")
+vioplot(x = chickwts$weight, horizontal = FALSE, side="both", fill="grey70",
+        boxplot.fill="grey30", label = "Weights", xlab = "none")
 
 }
 \seealso{

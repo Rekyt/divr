@@ -2,12 +2,21 @@ Package: divr
 Type: Package
 Title: Custom Functions from ECOPAR people
 Version: 0.1.0
-Author@R: c(
-  person("Matthias", "Grenie", email = "matthias.grenie@gmail.com",role = c("aut", "cre")),
+Authors@R: c(
+  person("Matthias", "Grenie", email = "matthias.grenie@gmail.com", role = c("aut", "cre")),
   person("Pierre", "Denelle", email = "pierre.denelle@cefe.cnrs.fr", role = "aut"),
   person("Jules", "Segrestin", email = "jules.segrestin@cefe.cnrs.fr", role = "aut"),
-  person("Francois", "Vasseur", email = "francois.vasseur@cefe.cnrs.fr", role = "aut"))
-Description: Contains random functions useful for us
-License: MIT
+  person("Francois", "Vasseur", email = "francois.vasseur@cefe.cnrs.fr", role = "aut")
+  )
+Description: Contains random set functions useful for us.
+License: GPL (>= 2)
 LazyData: TRUE
+URL: https://github.com/Rekyt/divr
+BugReports: https://github.com/Rekyt/divr/issues
 RoxygenNote: 5.0.1
+Imports:
+  stats,
+  graphics,
+  multcomp
+Suggests:
+  ggplot2
