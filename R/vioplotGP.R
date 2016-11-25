@@ -151,7 +151,6 @@ vioplotGP <- function(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
     testdone <- TRUE
   }
   if(testdone) {
-<<<<<<< HEAD
     p.values[p.values>0.05]<-1
     p.values[p.values!=1]<-0
     ordre<-order(unlist(lapply(xgp,mean,na.rm=T)))
@@ -167,24 +166,6 @@ vioplotGP <- function(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
       while(any(lettres=="")&k<=ngp){
         lettres[which(p.values[k,k:ngp]==1)+k-1]<-paste0(lettres[which(p.values[k,k:ngp]==1)+k-1],letters[k])
         k=k+1
-=======
-    p.values[p.values>0.05] <- 1
-    p.values[p.values!=1] <- 0
-    ordre <- order(unlist(lapply(xgp, mean, na.rm=T)))
-    p.values <- p.values[ordre, ordre]
-    p.values <- unique(p.values)
-
-    if(nrow(p.values) == 0){
-      lettres <- rep("a", ngp)
-      names(lettres) <- levels(gp)
-    } else {
-      lettres <- rep("", ngp)
-      k <- 1
-      while(any(lettres == "") & k < ngp){
-        lettres[which(p.values[k, k:ngp] == 1) + k - 1] <- paste0(
-          lettres[which(p.values[k, k:ngp] == 1) + k - 1], letters[k])
-        k <- k + 1
->>>>>>> 8065be60d0d628294e250a1c0132cb8e380bdc15
       }
       names(lettres) <- colnames(p.values)
     }
