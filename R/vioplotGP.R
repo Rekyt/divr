@@ -105,7 +105,7 @@ vioplotGP<-function(x,gp,weights=NULL,labels=NA,xlab=NA,xlim=NA,ylim=NA,at=NA,we
     }else{
       lettres<-rep("",ngp)
       k=1
-      while(any(lettres=="")&k<ngp){
+      while(any(lettres=="")&k<=ngp){
         lettres[which(p.values[k,k:ngp]==1)+k-1]<-paste0(lettres[which(p.values[k,k:ngp]==1)+k-1],letters[k])
         k=k+1
       }
