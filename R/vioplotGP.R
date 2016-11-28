@@ -15,7 +15,10 @@
 #' @param h the kernel density smoothing parameter
 #' @param nblim minimum length of x for computing the kernel density
 #' @param Test a character value for group comparison tests "tukey" or "wilcox"
-#' @param Testadj ?
+#' @param adj.Test ?
+#' @param side.Test ?
+#' @param line.Test ?
+#' @param type.letters
 #' @param pos.letters ?
 #' @param col.letters ?
 #' @param add if TRUE adds the plot to the current plot window
@@ -56,24 +59,32 @@
 
 vioplotGP <- function(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
                     ylim = NA, at = NA, wex =.75, h = NA, nblim = 10, Test = NA,
-                    Testadj = 0.01, pos.letters = 1, col.letters = 1, add = F,
-                    col = 1, pch = 19, lwd = 1, lty = 1, cex = 1, cex.points = 1,
-                    col.points = 1, bg = 1, las = 0, boxplot = TRUE,
-                    side = "above", fill = NA, pts = TRUE, boxplot.fill = "white",
-                    horizontal = TRUE){
+                    adj.Test = 0.01, line.Test = NA, side.Test=3, type.letters="latin",
+                    pos.letters = 1, col.letters = 1, add = F, col = 1, pch = 19,
+                    lwd = 1, lty = 1, cex = 1, cex.points = 1, col.points = 1,
+                    bg = 1, las = 0, boxplot = TRUE, side = "above", fill = NA,
+                    pts = TRUE, boxplot.fill = "white", horizontal = TRUE){
 
-  # check
+  ##### check ####
+
   if (!is.na(Test) & !(Test%in%c("wilcox","tukey"))) {
     stop("Test argument should be 'wilcox' or 'tukey'")
   }
+  if (!(type.letters%in%c("latin","greek"))) {
+    stop("Test argument should be 'latin' or 'greek'")
+  }
 
-  #data descriptors
+  if (!side %in% c("above", "below", "right", "left", "both")) {
+    stop('side argument should be "above","below", "right", "left" or "both"')
+  }
+
+  #### data descriptors ####
   ngp <- nlevels(gp)
   xgp <- mapply(function(X){x[gp == X]},levels(gp))
   if(class(xgp)!="list")xgp <- list(xgp)
   quart <- lapply(xgp,quantile)
 
-  #weights
+  #### weights ####
   w <- weights
   n <- length(x)
   if (is.null(w)) {
@@ -94,24 +105,19 @@ vioplotGP <- function(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
     xgp <- list(wgp)
   }
 
-  # side
-  if (!side %in% c("above", "below", "right", "left", "both")) {
-    stop('side argument should be "above","below", "right", "left" or "both"')
-  }
-
-  # at
+  #### at ####
   if (all(is.na(at))) {
     at <- 1:ngp
   } else if (length(at)!=ngp) {
     stop("at length not correct")
   }
 
-  #labels
+  ##### labels ####
   if (all(is.na(labels))) {
     labels <- levels(as.factor(gp))
   }
 
-  #test if test
+  #### if test ####
   testdone <- FALSE
 
   if (!is.na(Test) & Test == "wilcox"){
@@ -169,8 +175,8 @@ vioplotGP <- function(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
       }
       names(lettres) <- colnames(p.values)
     }
-    if(add) {
-      greekletters <- c("alpha", "beta", "gamma", "epsilon", "zeta")
+    if(type.letters=="greek") {
+      greekletters <- c("alpha", "beta", "gamma", "delta", "epsilon","zeta","eta","theta", "iota", "kappa")
       lettres <- lapply(strsplit(lettres, ""), function(X){
         mapply(function(x) {which(letters == x)},X)
       })
@@ -199,6 +205,7 @@ vioplotGP <- function(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
       } else {
         ylimi = ylim
       }
+
       plot.window(xlim = xlimi, ylim = ylimi)
       box(which ="plot", col = 1, lwd = 1)
       axis(1, las = las)
@@ -258,6 +265,7 @@ vioplotGP <- function(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
 
   # vioplots
   hi <- NULL
+  x.lettre<-NULL
   for (i in 1:ngp) {
     hi <- c(hi, vioplot(xgp[[i]], weights = wgp[[i]], wex = wex[i], h = h[i],
                         add = T, nblim = nblim, at = at[i], pch = pch[i],
@@ -267,26 +275,28 @@ vioplotGP <- function(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
                         pts = pts[i],boxplot.fill = boxplot.fill[i],
                         horizontal = horizontal))
 
-    if (testdone) {
-      line <- ifelse(add, -2.2, -1.2)
-      mtext(side = 3, adj = Testadj, text = stat, line = line, cex = cex, las = 1)
-      lettre <- lettres[names(lettres) == levels(gp)[i]]
-      if (add) {
-        if (horizontal) {
-          text(quart[[i]][3], at[i], parse(text = lettre), pos = pos.letters,
-               cex = cex, col = col.letters)
-        } else {
-          text(at[i], quart[[i]][3], parse(text = lettre), pos = pos.letters,
-               cex = cex, col = col.letters)
-        }
+    x.lettre <-c(x.lettre,quart[[i]][3])
+  }
+
+  if (testdone) {
+    line <- ifelse(is.na(line.Test),ifelse(add, -2.2, -1.2),line.Test)
+    mtext(side = side.Test, adj = adj.Test, text = stat, line = line, cex = cex, las = 1)
+
+    if (type.letters=="greek") {
+      if (horizontal) {
+        text(x.lettre, at, parse(text = lettres), pos = pos.letters,
+        cex = cex, col = col.letters)
       } else {
-        if (horizontal) {
-          text(quart[[i]][3], at[i], lettre, pos = pos.letters, cex = cex,
-               col = col.letters)
-        } else {
-          text(at[i], quart[[i]][3], lettre, pos = pos.letters, cex = cex,
-               col = col.letters)
-        }
+        text(at, x.lettre, parse(text = lettres), pos = pos.letters,
+            cex = cex, col = col.letters)
+      }
+    } else {
+      if (horizontal) {
+        text(x.lettre, at, lettres, pos = pos.letters, cex = cex,
+              col = col.letters)
+      } else {
+        text(at, x.lettre, lettres, pos = pos.letters, cex = cex,
+          col = col.letters)
       }
     }
   }
