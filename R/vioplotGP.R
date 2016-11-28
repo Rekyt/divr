@@ -18,6 +18,7 @@
 #' @param adj.Test ?
 #' @param side.Test ?
 #' @param line.Test ?
+#' @param Fname ?
 #' @param type.letters
 #' @param pos.letters ?
 #' @param col.letters ?
@@ -59,7 +60,7 @@
 
 vioplotGP <- function(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
                     ylim = NA, at = NA, wex =.75, h = NA, nblim = 10, Test = NA,
-                    adj.Test = 0.01, line.Test = NA, side.Test=3, type.letters="latin",
+                    adj.Test = 0.01, line.Test = NA, side.Test=3, Fname=NA, type.letters="latin",
                     pos.letters = 1, col.letters = 1, add = F, col = 1, pch = 19,
                     lwd = 1, lty = 1, cex = 1, cex.points = 1, col.points = 1,
                     bg = 1, las = 0, boxplot = TRUE, side = "above", fill = NA,
@@ -152,7 +153,7 @@ vioplotGP <- function(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
                           ifelse(pval < 0.05, "*",
                                  ifelse(pval < 0.1, ".", "ns"))))
 
-    Fname <- ifelse(add, "F '", "F")
+    Fname <- ifelse(is.na(Fname),"F",Fname)
     stat <- paste0(Fname, " = ", Fval, pval)
     testdone <- TRUE
   }
@@ -174,6 +175,7 @@ vioplotGP <- function(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
         k=k+1
       }
       names(lettres) <- colnames(p.values)
+      lettres<-lettres[match(levels(gp), names(lettres))]
     }
     if(type.letters=="greek") {
       greekletters <- c("alpha", "beta", "gamma", "delta", "epsilon","zeta","eta","theta", "iota", "kappa")
