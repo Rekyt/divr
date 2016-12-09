@@ -148,13 +148,13 @@ vioplotGP <- function(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
     }
     Fval <- round(summary(aov(x ~ gp, weights = w))[[1]][1,"F value"],2)
     pval <- summary(aov(x ~ gp, weights = w))[[1]][1, "Pr(>F)"]
-    pval <- ifelse(pval < 0.001, "***",
-                   ifelse(pval < 0.01, "**",
-                          ifelse(pval < 0.05, "*",
+    pval <- ifelse(pval < 0.001, "******",
+                   ifelse(pval < 0.01, "****",
+                          ifelse(pval < 0.05, "**",
                                  ifelse(pval < 0.1, ".", "ns"))))
 
     Fname <- ifelse(is.na(Fname),"F",Fname)
-    stat <- paste0(Fname, " = ", Fval, pval)
+    stat <- paste0(Fname, "==", Fval, pval)
     testdone <- TRUE
   }
   if(testdone) {
