@@ -35,7 +35,7 @@ make_quantile_density = function(ex_vector, probs = NULL) {
     dens_df = with(density(ex_vector), data.frame(x, y))
 
     # Take only "real" parts of the density
-    dens_df = dens_df[dens_df$x >= quant[[1]] &&
+    dens_df = dens_df[dens_df$x >= quant[[1]] &
                         dens_df$x <= quant[[length(quant)]], ]
 
     # Cut the areas based on quantiles
