@@ -282,7 +282,7 @@ vioplotGP <- function(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
 
   if (testdone) {
     line <- ifelse(is.na(line.Test),ifelse(add, -2.2, -1.2),line.Test)
-    mtext(side = side.Test, adj = adj.Test, text = stat, line = line, cex = cex, las = 1)
+    mtext(side = side.Test, adj = adj.Test, text = parse(text=stat), line = line, cex = cex, las = 1)
 
     if (type.letters=="greek") {
       if (horizontal) {
