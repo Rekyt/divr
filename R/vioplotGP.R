@@ -90,21 +90,15 @@ vioplotGP <- function(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
   n <- length(x)
   if (is.null(w)) {
 
-     w <- rep(1/n,n)
+     w <- rep(1,n)
 
   } else if (length(w)!=n) {
     stop("Weight length not correct")
   }
 
   w <- w/sum(w)
+  wgp <- sapply(X =levels(gp), FUN = function(X){w[gp==X]/sum(w[gp==X])}, simplify = F )
 
-  wgp <- mapply(function(X){
-    w[gp==X]/sum(w[gp==X])
-  }, levels(gp))
-
-  if (class(wgp) != "list") {
-    xgp <- list(wgp)
-  }
 
   #### at ####
   if (all(is.na(at))) {
