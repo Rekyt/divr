@@ -81,24 +81,22 @@ vioplotGP <- function(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
 
   #### data descriptors ####
   ngp <- nlevels(gp)
-  xgp <- mapply(function(X){x[gp == X]},levels(gp))
-  if(class(xgp)!="list")xgp <- list(xgp)
+  xgp <- sapply(X = levels(gp),FUN = function(X){x[gp == X]},simplify = F)
+  if(class(xgp)!="list") xgp <- list(xgp)
   quart <- lapply(xgp,quantile)
 
   #### weights ####
   w <- weights
   n <- length(x)
   if (is.null(w)) {
-
      w <- rep(1,n)
-
   } else if (length(w)!=n) {
     stop("Weight length not correct")
   }
 
   w <- w/sum(w)
   wgp <- sapply(X =levels(gp), FUN = function(X){w[gp==X]/sum(w[gp==X])}, simplify = F )
-
+  if(class(wgp)!="list") wgp <- list(wgp)
 
   #### at ####
   if (all(is.na(at))) {
