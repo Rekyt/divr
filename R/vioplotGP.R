@@ -33,8 +33,7 @@
 #' @param bg ?
 #' @param las ?
 #' @param boxplot logical value for adding a boxplot or not
-#' @param side a character value describind if the distribution should be drawn
-#'        in the "above", "below", "right", "left" or "both" side(s)
+#' @param side a character value describind if the distribution should be drawn in the "above", "below", "right", "left" or "both" side(s)
 #' @param fill the color of the distribution area
 #' @param pts logical value for adding x data on the distribution curve
 #' @param boxplot.fill the color of the boxplot
