@@ -22,4 +22,3 @@ v_na <- c(1, 3, 4)
 length(v)
 nonalength(v)
 }
-

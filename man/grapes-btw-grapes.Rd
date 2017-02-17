@@ -28,4 +28,3 @@ my_vec <- c(1, 4, 8)
 c(0,1.3,8, 12) \%sbtw\% my_vec # returns FALSE TRUE FALSE FALSE
 
 }
-

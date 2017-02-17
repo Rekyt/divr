@@ -97,4 +97,3 @@ vioplotGP(x = chickwts$weight, gp = chickwts$feed, las = 2,
 \seealso{
 For group comparison see vioplotGp
 }
-

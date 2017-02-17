@@ -21,4 +21,3 @@ m <- matrix(rnorm(1000), ncol = 1000)
 mhead(m)
 
 }
-

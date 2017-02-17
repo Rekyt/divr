@@ -25,4 +25,3 @@ gg = make_quantile_density(vec)
 gg
 
 }
-

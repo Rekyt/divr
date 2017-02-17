@@ -40,4 +40,3 @@ plotOmbro(temp,prec,min,max,site="Montpellier",alt=57)
 
 
 }
-

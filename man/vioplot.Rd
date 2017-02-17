@@ -75,4 +75,3 @@ vioplot(x = chickwts$weight, horizontal = FALSE, side="both", fill="grey70",
 \seealso{
 For group comparison see vioplotGp
 }
-
