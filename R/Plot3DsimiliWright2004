@@ -1,7 +1,22 @@
+#' LES Plot3D
+#'
+#' Produce the same 3D Plot as found in Wrigth 2004 paper. 
+#'
+#' @param yourdata a datasheet containing the variables to plot.
+#' @param Xaxis name of the variable to plot in X 
+#' @param xlab label for x axis
+#' @param logxyz character containing the axes to log (log10)
+#' @param Rotate parameter to moove the plot around a vertical axe
+#' @param Flip parameter to moove the plot around a horizontal axe
+#'
+#' @examples
+#'
+#' LESPlot3D(iris,"Sepal.Length","Sepal.Width","Petal.Length","Sepal.Length","Sepal.Width","Petal.Length")
+
 LESPlot3D<-function(yourdata,Xaxis,Yaxis,Zaxis,xlab="X",ylab="Y",zlab="Z",logxyz="",Rotate=110,Flip=25){
 
 
-  # log pas log ?
+  # log 
   if(grepl("x",logxyz)==T){
     yourdata[[Xaxis]]<-log10(yourdata[[Xaxis]])
     Xrange<-log10(pretty(10^yourdata[[Xaxis]],n=4))
