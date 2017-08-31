@@ -19,5 +19,7 @@ Imports:
   graphics,
   multcomp
 Suggests:
+  ape,
   ggplot2,
-    testthat
+  phytools,
+  testthat
