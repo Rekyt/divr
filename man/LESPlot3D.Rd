@@ -27,4 +27,5 @@ Produce the same 3D Plot as found in Wrigth 2004 paper.
 
 LESPlot3D(iris, "Sepal.Length", "Sepal.Width", "Petal.Length",
           "Sepal.Length", "Sepal.Width", "Petal.Length")
+
 }

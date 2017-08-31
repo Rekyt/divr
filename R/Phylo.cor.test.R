@@ -9,19 +9,19 @@
 #'
 #' @examples
 #'
-#' @import phytools stats
+#' @import stats
 #'
 #' @export
 
 phylo.cor.test<-function(x,y,tree){
 
-  if (length(x)!=length(y)) stop("'x' and 'y' must have the same length")
-  X<-cbind(x,y)
-  obj<-phytools::phyl.vcv(X, ape::vcv(tree),1)
-  r.xy<-cov2cor(obj$R)["x","y"]
-  t.xy<-r.xy*sqrt((Ntip(tree)-2)/(1-r.xy^2))
-  P.xy<-2*pt(abs(t.xy),df=Ntip(tree)-2,lower.tail=F)
-  list(r=r.xy, r.squared=r.xy^2,t=t.xy, p.value = P.xy)
+  if (length(x) != length(y)) stop("'x' and 'y' must have the same length")
+  X <- cbind(x, y)
+  obj <- phytools::phyl.vcv(X, ape::vcv(tree), 1)
+  r.xy <- cov2cor(obj$R)["x","y"]
+  t.xy <- r.xy*sqrt((Ntip(tree) - 2)/(1 - r.xy^2))
+  P.xy <- 2*pt(abs(t.xy), df = ape::Ntip(tree) - 2, lower.tail = F)
+  list(r = r.xy, r.squared = r.xy^2, t = t.xy, p.value = P.xy)
 }
 
 
