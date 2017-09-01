@@ -20,7 +20,7 @@ phylo.cor.test<-function (x,y,tree) {
   if (length(x) > ape::Ntip(tree)) stop("length of 'y' and 'x' cannot be greater than number of taxa in your tree")
 
   if (is.null(names(x)) | is.null(names(y))) {
-    if (length(x) < Ntip(tree)) stop("'y' and 'x' have no names. Their length must be equal to the number of taxa in your tree")
+    if (length(x) < ape::Ntip(tree)) stop("'y' and 'x' have no names. Their length must be equal to the number of taxa in your tree")
     warning("'y' and 'x' have no names. Function will assume that the order matches tree$tip.label")
     X <- cbind(x, y)
     rownames(X) <- tree$tip.label
@@ -31,7 +31,7 @@ phylo.cor.test<-function (x,y,tree) {
     X <- X[, -1]
     if (!all(rownames(X) %in% tree$tip.label)) stop("Not all 'x' or 'y' names match with tree$tip.label")
     sup<-which(!tree$tip.label %in% rownames(X))
-    if (length(sup) > 0) tree<-drop.tip(tree, sup)
+    if (length(sup) > 0) tree<-ape::drop.tip(tree, sup)
   }
 
   C <- ape::vcv.phylo(tree)[rownames(X), rownames(X)]
