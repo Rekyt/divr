@@ -18,7 +18,7 @@
 #'
 #' @export
 
-LESPlot3D <- function(yourdata, Xaxis, Yaxis, Zaxis, xlab = "X", ylab = "Y",
+LESPlot3D <- function( yourdata, Xaxis, Yaxis, Zaxis, xlab = "X", ylab = "Y",
                       zlab = "Z", logxyz = "", Rotate = 110, Flip = 25) {
 
 
