@@ -175,7 +175,7 @@ LESPlot3D<-function(yourdata,Xaxis,Yaxis,Zaxis,
             theta=Rotate, phi = Flip,
             xlab=xlab, ylab=ylab, zlab=zlab,
             cex.lab=0.8,axes=F,
-            xlim=c(Xmin,Xmax),ylim=c(Ymin,Ymax),zlim=c(Zmin,Zmax),list(...))
+            xlim=c(Xmin,Xmax),ylim=c(Ymin,Ymax),zlim=c(Zmin,Zmax))
 
 
 }
