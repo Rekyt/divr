@@ -44,6 +44,8 @@ phylo.cor.test<-function (x,y,tree) {
   return(result)
 }
 
+#' @export
+
 print.phycor <- function (x, ...) {
   cat("\n Phylogenetic Pearson's product-moment correlation \n",
   "\n",
