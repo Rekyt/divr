@@ -1,3 +1,17 @@
+#' LESPlot3D
+#'
+#' Produce 3D Plot designed as Wrigth 2004 paper
+#'
+#' @param yourdata name of your datasheet.
+#' @param Xaxis,Yaxis,Zaxis Variable names of your datasheet in quotes.
+#' @param xlab,ylab,zlab labels for axes.
+#' @param Xticks,Yticks,Zticks a vector giving the ticks to use on the axes.
+#' @param logxyz a character string which contains "x" if the x axis is to be logarithmic, "y" if the y axis is to be logarithmic and "z" if the axis is to be logarithmic.
+#' @param Rotate,Flip the angles defining the viewing direction. Rotate gives the azimuthal direction and Flip the colatitude. Respectively, theta and Phi in persp.
+#'
+#' @examples
+#' LESPlot3D(iris,"Sepal.Length","Sepal.Width","Petal.Length","Sepal Length","Sepal Width","Petal Length")
+
 LESPlot3D<-function(yourdata,Xaxis,Yaxis,Zaxis,
                     xlab="X",ylab="Y",zlab="Z",
                     Xticks=NULL,Yticks=NULL,Zticks=NULL,
@@ -153,13 +167,13 @@ LESPlot3D<-function(yourdata,Xaxis,Yaxis,Zaxis,
 
 #### Plot 3D
 
-  scatter3D(yourdata[[Xaxis]], yourdata[[Yaxis]], yourdata[[Zaxis]],
+  plot3D::scatter3D(yourdata[[Xaxis]], yourdata[[Yaxis]], yourdata[[Zaxis]],
             panel.first = panelfirst ,
             col= "black", pch=16,
             theta=Rotate, phi = Flip,
             xlab=xlab, ylab=ylab, zlab=zlab,
             cex.lab=0.8,axes=F,
-            xlim=c(Xmin,Xmax),ylim=c(Ymin,Ymax),zlim=c(Zmin,Zmax))
+            xlim=c(Xmin,Xmax),ylim=c(Ymin,Ymax),zlim=c(Zmin,Zmax),list(...))
 
 
 }
