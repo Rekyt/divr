@@ -10,7 +10,8 @@
 #' @param Rotate,Flip the angles defining the viewing direction. Rotate gives the azimuthal direction and Flip the colatitude. Respectively, theta and Phi in persp.
 #'
 #' @examples
-#' LESPlot3D(iris,"Sepal.Length","Sepal.Width","Petal.Length","Sepal Length","Sepal Width","Petal Length")
+#' data("LES")
+#' LESPlot3D(LES,"log_LL","log_LMA","log_Nmass","LL","LMA","Nmass")
 #' @import plot3D
 #' @export
 

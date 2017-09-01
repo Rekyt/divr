@@ -25,5 +25,6 @@ LESPlot3D(yourdata, Xaxis, Yaxis, Zaxis, xlab = "X", ylab = "Y",
 Produce 3D Plot designed as Wrigth 2004 paper
 }
 \examples{
-LESPlot3D(iris,"Sepal.Length","Sepal.Width","Petal.Length","Sepal Length","Sepal Width","Petal Length")
+data("LES")
+LESPlot3D(LES,"log_LL","log_LMA","log_Nmass","LL","LMA","Nmass")
 }
