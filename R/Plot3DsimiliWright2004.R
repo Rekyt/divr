@@ -11,6 +11,8 @@
 #'
 #' @examples
 #' LESPlot3D(iris,"Sepal.Length","Sepal.Width","Petal.Length","Sepal Length","Sepal Width","Petal Length")
+#' @import plot3D
+#'
 
 LESPlot3D<-function(yourdata,Xaxis,Yaxis,Zaxis,
                     xlab="X",ylab="Y",zlab="Z",
