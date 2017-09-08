@@ -68,13 +68,12 @@ phylo.cor.test<-function (x,y,tree, method=c("pcov", "pic")) {
 #' @export
 
 print.phycor <- function (x, ...) {
-  cat("\n Phylogenetic Pearson's product-moment correlation based on ")
+  cat("\nPhylogenetic Pearson's product-moment correlation \nbased on ")
   cat(x$method)
   cat("\n", "\n")
-  cat(paste0("t = ", round(x$t, 3), ", df = ", x$df ,", p-value = ", round(x$p.value, 6)),"\n",
-  "alternative hypothesis: true correlation is not equal to 0 \n",
-  paste0("cor = ", round(x$r, 6)),
-  "\n")
+  cat(paste0("t = ", round(x$t, 3), ", df = ", x$df ,", p-value = ", round(x$p.value, 6)),"\n")
+  cat("alternative hypothesis: true correlation is not equal to 0 \n")
+  cat(paste0("cor = ", round(x$r, 6)),"\n")
 }
 
 
