@@ -4,10 +4,12 @@
 \alias{phylo.cor.test}
 \title{Phylogenetic correlation test using Pearson's product moment}
 \usage{
-phylo.cor.test(x, y, tree)
+phylo.cor.test(x, y, tree, method = c("pcov", "pic"))
 }
 \arguments{
 \item{tree}{An object of class phylo representing the phylogeny (with branch lengths) to consider}
+
+\item{method}{pcov or pic}
 
 \item{'x, }{y' numeric vectors of data values. x and y must have the same length}
 }
