@@ -22,7 +22,7 @@ phylo.cor.test <- function(x, y, tree, method = c("pcov", "pic")) {
   OK <- complete.cases(x, y)
   x <- x[OK]
   y <- y[OK]
-  if (sum(!OK) > 0) message(paste(sum(!OK),"NA values omitted"))
+  if (sum(!OK) > 0) message(paste(sum(!OK),"NA values omitted.\n"))
   if (!inherits(tree, "phylo")) stop("tree should be an object of class 'phylo'")
   if (length(x) > ape::Ntip(tree)) stop("length of 'y' and 'x' cannot be greater than number of taxa in your tree")
 
@@ -40,7 +40,7 @@ phylo.cor.test <- function(x, y, tree, method = c("pcov", "pic")) {
     sup<-which(!tree$tip.label %in% rownames(X))
     if (length(sup) > 0) {
       tree<-ape::drop.tip(tree, sup)
-      message(paste(sup,"species in your tree were not found in 'x' and 'y' names. They were removed from the tree before the analysis"))
+      message(paste(sup,"species in your tree were not found in 'x' and 'y' names. They were removed from the tree before the analysis.\n"))
     }
   }
 
@@ -60,7 +60,7 @@ phylo.cor.test <- function(x, y, tree, method = c("pcov", "pic")) {
     if (!ape::is.binary(tree)) {
       tree <- ape::multi2di(tree, random = TRUE)
       message("Multichotomies were found in your tree. All multichotomies were transformed into a series
-              of dichotomies with one (or several) branch(es) of length zero before the computation of pics.")
+              of dichotomies with one (or several) branch(es) of length zero before the computation of pics.\n")
     }
     picx <- ape::pic(X[, 1], tree)
     picy <- ape::pic(X[, 2], tree)
