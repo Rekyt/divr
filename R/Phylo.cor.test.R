@@ -40,7 +40,7 @@ phylo.cor.test <- function(x, y, tree, method = c("pcov", "pic")) {
     sup<-which(!tree$tip.label %in% rownames(X))
     if (length(sup) > 0) {
       tree<-ape::drop.tip(tree, sup)
-      message(paste(sup,"species in your tree were not found in 'x' and 'y' names. They were removed from the tree before the analysis.\n"))
+      message(paste(length(sup),"species in your tree were not found in 'x' and 'y' names. They were removed from the tree before the analysis.\n"))
     }
   }
 
