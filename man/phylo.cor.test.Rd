@@ -7,11 +7,11 @@
 phylo.cor.test(x, y, tree, method = c("pcov", "pic"))
 }
 \arguments{
+\item{x, y}{numeric vectors of data values. x and y must have the same length}
+
 \item{tree}{An object of class phylo representing the phylogeny (with branch lengths) to consider}
 
-\item{method}{pcov or pic}
-
-\item{'x, }{y' numeric vectors of data values. x and y must have the same length}
+\item{method}{\code{pcov} to use a phylogenetic trait variance-covariance matrix or \code{pic} to use phylogenetically Independent Contrasts}
 }
 \description{
 Test for association between paired samples, using the Pearson's
