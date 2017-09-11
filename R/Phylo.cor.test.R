@@ -40,7 +40,7 @@ phylo.cor.test <- function(x, y, tree, method = c("pcov", "pic")) {
     sup<-which(!tree$tip.label %in% rownames(X))
     if (length(sup) > 0) {
       tree<-ape::drop.tip(tree, sup)
-      message(paste(length(sup),"species in your tree were not found in 'x' and 'y' names. They were removed from the tree before the analysis.\n"))
+      message(paste("missing data in 'x' or 'y':",length(sup),"species were removed from the tree before the analysis.\n"))
     }
   }
 
@@ -64,10 +64,12 @@ phylo.cor.test <- function(x, y, tree, method = c("pcov", "pic")) {
     }
     picx <- ape::pic(X[, 1], tree)
     picy <- ape::pic(X[, 2], tree)
-    r <- stats::cor(picx, picy)
-    test <- stats::cor.test(picx, picy, method = "pearson")
-    result <- list(r = r, r.squared = r^2, t = test$statistic, df = test$parameter,
-                   p.value = test$p.value, method = "Phylogenetically Independent Contrasts")
+    r <- sum(picx * picy) / sqrt(sum(picx^2) * sum(picy^2))
+    t.xy <- r * sqrt((length(picx) - 1) / (1 - r^2))
+    P <- 2 * min(pt(t.xy, df = length(picx) - 1, lower.tail = FALSE),
+                 pt(t.xy, df = length(picx) - 1, lower.tail = TRUE))
+    result <- list(r = r, r.squared = r^2, t = t.xy, df = length(picx) - 1,
+                   p.value = P, method = "Phylogenetically Independent Contrasts")
     class(result) <- "phycor"
   }
 
