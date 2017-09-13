@@ -45,6 +45,8 @@ vioplotGP(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
 
 \item{Fname}{?}
 
+\item{type.letters}{?}
+
 \item{pos.letters}{?}
 
 \item{col.letters}{?}
@@ -71,7 +73,8 @@ vioplotGP(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
 
 \item{boxplot}{logical value for adding a boxplot or not}
 
-\item{side}{a character value describind if the distribution should be drawn in the "above", "below", "right", "left" or "both" side(s)}
+\item{side}{a character value describind if the distribution should be drawn
+in the "above", "below", "right", "left" or "both" side(s)}
 
 \item{fill}{the color of the distribution area}
 
