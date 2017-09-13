@@ -18,6 +18,3 @@ Test for association between paired samples, using the Pearson's
 product moment correlation coefficient and taking into account
 the dataset phylogenetic structure
 }
-\examples{
-
-}

@@ -8,8 +8,6 @@
 #' @param tree An object of class phylo representing the phylogeny (with branch lengths) to consider
 #' @param method \code{pcov} to use a phylogenetic trait variance-covariance matrix or \code{pic} to use phylogenetically Independent Contrasts
 #'
-#' @examples
-#'
 #' @import stats
 #'
 #' @export
