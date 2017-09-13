@@ -2,7 +2,7 @@
 % Please edit documentation in R/vioplot.R
 \name{vioplot}
 \alias{vioplot}
-\title{Violon plots}
+\title{violin plots}
 \usage{
 vioplot(x, weights = NULL, xlim = NA, ylim = NA, xlab = NA,
   label = "none", wex = 0.75, h = NA, add = F, nblim = 10, at = 1,
@@ -51,19 +51,19 @@ vioplot(x, weights = NULL, xlim = NA, ylim = NA, xlab = NA,
 
 \item{bg}{background color}
 
-\item{side}{a character value describind if the distribution should be drawn
+\item{side}{a character value describing if the distribution should be drawn
 in the "above", "below", "right", "left" or "both" side(s)}
 
 \item{fill}{the color of the distribution area}
 
-\item{pts}{logical value for adding x data on the curve distrivution}
+\item{pts}{logical value for adding x data on the curve distribution}
 
 \item{boxplot.fill}{the color of the boxplot}
 
 \item{horizontal}{logical value}
 }
 \description{
-Produce a violon plot taking into acount weightings
+Produce a violin plot taking into account weightings
 }
 \examples{
 

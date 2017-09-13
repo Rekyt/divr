@@ -1,6 +1,6 @@
-#' Violon plots
+#' violin plots
 #'
-#' Produce a violon plot taking into acount weightings
+#' Produce a violin plot taking into account weightings
 #'
 #' @param x a numeric vector of data
 #' @param weights a numeric vector with the same length as x
@@ -22,10 +22,10 @@
 #' @param las ?
 #' @param boxplot logical value for adding a boxplot or not
 #' @param bg background color
-#' @param side a character value describind if the distribution should be drawn
+#' @param side a character value describing if the distribution should be drawn
 #'        in the "above", "below", "right", "left" or "both" side(s)
 #' @param fill the color of the distribution area
-#' @param pts logical value for adding x data on the curve distrivution
+#' @param pts logical value for adding x data on the curve distribution
 #' @param boxplot.fill the color of the boxplot
 #' @param horizontal logical value
 #'

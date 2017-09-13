@@ -2,7 +2,7 @@
 % Please edit documentation in R/vioplotGP.R
 \name{vioplotGP}
 \alias{vioplotGP}
-\title{Violon plots for Groups}
+\title{Violin plots for Groups}
 \usage{
 vioplotGP(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
   ylim = NA, at = NA, wex = 0.75, h = NA, nblim = 10, Test = NA,
@@ -15,7 +15,7 @@ vioplotGP(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
 \arguments{
 \item{x}{a numeric vector of data}
 
-\item{gp}{factors with the same length as x decribing groups}
+\item{gp}{factors with the same length as x describing groups}
 
 \item{weights}{a numeric vector with the same length as x}
 
@@ -73,7 +73,7 @@ vioplotGP(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
 
 \item{boxplot}{logical value for adding a boxplot or not}
 
-\item{side}{a character value describind if the distribution should be drawn
+\item{side}{a character value describing if the distribution should be drawn
 in the "above", "below", "right", "left" or "both" side(s)}
 
 \item{fill}{the color of the distribution area}
@@ -85,7 +85,7 @@ in the "above", "below", "right", "left" or "both" side(s)}
 \item{horizontal}{logical value}
 }
 \description{
-Produce a violon plot acording to groups taking into acount weightings and compute comparison tests
+Produce a Violin plot according to groups taking into account weightings and compute comparison tests
 }
 \examples{
 

@@ -9,7 +9,7 @@ mhead(given_object, n = 5)
 \arguments{
 \item{given_object}{a \code{matrix} object}
 
-\item{n}{an integer number ofthe number of rows and columns to show}
+\item{n}{an integer number of the number of rows and columns to show}
 }
 \description{
 This function makes it easier to show the head of a matrix object without

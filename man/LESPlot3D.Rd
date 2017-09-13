@@ -22,7 +22,7 @@ LESPlot3D(yourdata, Xaxis, Yaxis, Zaxis, xlab = "X", ylab = "Y",
 \item{Rotate, Flip}{the angles defining the viewing direction. Rotate gives the azimuthal direction and Flip the colatitude. Respectively, theta and Phi in persp.}
 }
 \description{
-Produce 3D Plot designed as Wrigth 2004 paper
+Produce 3D Plot designed as Wright 2004 paper
 }
 \examples{
 

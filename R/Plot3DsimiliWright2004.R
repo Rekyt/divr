@@ -1,6 +1,6 @@
 #' LESPlot3D
 #'
-#' Produce 3D Plot designed as Wrigth 2004 paper
+#' Produce 3D Plot designed as Wright 2004 paper
 #'
 #' @param yourdata name of your datasheet.
 #' @param Xaxis,Yaxis,Zaxis Variable names of your datasheet in quotes.

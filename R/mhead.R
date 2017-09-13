@@ -5,7 +5,7 @@
 #' given number of rows and columns
 #'
 #' @param given_object a \code{matrix} object
-#' @param n an integer number ofthe number of rows and columns to show
+#' @param n an integer number of the number of rows and columns to show
 #'
 #' @examples
 #' m <- matrix(rnorm(1000), ncol = 1000)

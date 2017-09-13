@@ -4,12 +4,12 @@
 #'
 #' @param temp a numeric vector monthly mean temperatures (12 values)
 #' @param prec a numeric vector monthly total precipitations (12 values)
-#' @param min an numeric vector montly minimal temperatures (12 values); optional, default value = NA
-#' @param max a numeric vector montly maximal temperatures (12 values); optional, default value = NA
+#' @param min an numeric vector monthly minimal temperatures (12 values); optional, default value = NA
+#' @param max a numeric vector monthly maximal temperatures (12 values); optional, default value = NA
 #' @param site  the site name character
 #' @param alt the site altitude; optional, default value = NA
 #' @param Tmin minimal value for the temperature y-axis; default value = NA
-#' @param H a two colomn matrix describing the low water availability periods (start and end between 0 and 12); optional, default value = NA
+#' @param H a two-column matrix describing the low water availability periods (start and end between 0 and 12); optional, default value = NA
 #' @param cex text size; default value = 1
 #'
 #' @examples

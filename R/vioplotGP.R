@@ -1,10 +1,10 @@
-#' Violon plots for Groups
+#' Violin plots for Groups
 #'
-#' Produce a violon plot acording to groups taking into acount weightings and compute comparison tests
+#' Produce a Violin plot according to groups taking into account weightings and compute comparison tests
 #'
 #'
 #' @param x a numeric vector of data
-#' @param gp factors with the same length as x decribing groups
+#' @param gp factors with the same length as x describing groups
 #' @param weights a numeric vector with the same length as x
 #' @param labels ?
 #' @param xlab ?
@@ -33,7 +33,7 @@
 #' @param bg ?
 #' @param las ?
 #' @param boxplot logical value for adding a boxplot or not
-#' @param side a character value describind if the distribution should be drawn
+#' @param side a character value describing if the distribution should be drawn
 #'             in the "above", "below", "right", "left" or "both" side(s)
 #' @param fill the color of the distribution area
 #' @param pts logical value for adding x data on the distribution curve

@@ -12,9 +12,9 @@ plotOmbro(temp, prec, min = NA, max = NA, site = NA, alt = NA,
 
 \item{prec}{a numeric vector monthly total precipitations (12 values)}
 
-\item{min}{an numeric vector montly minimal temperatures (12 values); optional, default value = NA}
+\item{min}{an numeric vector monthly minimal temperatures (12 values); optional, default value = NA}
 
-\item{max}{a numeric vector montly maximal temperatures (12 values); optional, default value = NA}
+\item{max}{a numeric vector monthly maximal temperatures (12 values); optional, default value = NA}
 
 \item{site}{the site name character}
 
@@ -22,7 +22,7 @@ plotOmbro(temp, prec, min = NA, max = NA, site = NA, alt = NA,
 
 \item{Tmin}{minimal value for the temperature y-axis; default value = NA}
 
-\item{H}{a two colomn matrix describing the low water availability periods (start and end between 0 and 12); optional, default value = NA}
+\item{H}{a two-column matrix describing the low water availability periods (start and end between 0 and 12); optional, default value = NA}
 
 \item{cex}{text size; default value = 1}
 }
