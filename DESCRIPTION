@@ -5,8 +5,8 @@ Version: 0.1.0
 Authors@R: c(
   person("Matthias", "Grenie", email = "matthias.grenie@gmail.com", role = c("aut", "cre")),
   person("Pierre", "Denelle", email = "pierre.denelle@cefe.cnrs.fr", role = "aut"),
-  person("Jules", "Segrestin", email = "jules.segrestin@cefe.cnrs.fr", role = "aut"),
-  person("Francois", "Vasseur", email = "francois.vasseur@cefe.cnrs.fr", role = "aut")
+  person("Kevin", "Sartori", email = "kevin.sartori@cefe.cnrs.fr", role = "aut"),
+  person("Jules", "Segrestin", email = "jules.segrestin@cefe.cnrs.fr", role = "aut")
   )
 Description: Contains random set functions useful for us.
 License: GPL (>= 2)
