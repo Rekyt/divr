@@ -78,6 +78,10 @@ vioplotGP <- function(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
   if (!side %in% c("above", "below", "right", "left", "both")) {
     stop('side argument should be "above","below", "right", "left" or "both"')
   }
+  #### remove NA values ####
+  gp <- gp[!is.na(x)]
+  weights <- weights[!is.na(x)]
+  x <- x[!is.na(x)]
 
   #### data descriptors ####
   ngp <- nlevels(gp)
