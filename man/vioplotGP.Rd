@@ -19,15 +19,13 @@ vioplotGP(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
 
 \item{weights}{a numeric vector with the same length as x}
 
-\item{labels}{?}
+\item{labels}{group names in the same order than \code{gp} levels}
 
-\item{xlab}{?}
+\item{xlab}{label for the x-axis}
 
-\item{xlim}{?}
+\item{xlim, }{ylim range of values used for x and y-axes}
 
-\item{ylim}{?}
-
-\item{at}{?}
+\item{at}{position of each group in the y-axis}
 
 \item{wex}{the maximum value for the density curve}
 
@@ -37,19 +35,13 @@ vioplotGP(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
 
 \item{Test}{a character value for group comparison tests "tukey" or "wilcox"}
 
-\item{adj.Test}{?}
-
-\item{line.Test}{?}
-
-\item{side.Test}{?}
+\item{adj.Test, side.Test, line.Test}{position paramters for the test value and P.value}
 
 \item{Fname}{?}
 
-\item{type.letters}{?}
+\item{type.letters}{if Test is done, "latin" or "greek" letters are used to show significant differences between groups}
 
-\item{pos.letters}{?}
-
-\item{col.letters}{?}
+\item{pos.letters, col.letters}{position (1, 2, 3 or 4) and colors for letters}
 
 \item{add}{if TRUE adds the plot to the current plot window}
 
