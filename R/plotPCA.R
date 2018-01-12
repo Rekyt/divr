@@ -27,8 +27,8 @@ plot.pca <- function(pca, axes = c(1, 2), xlim=c(-1.2,1.2), ylim=c(-1.2,1.2),
   signx<-ifelse(sign(sum(sign(pca$co[,Axis1])))<0,-1,1)
   signy<-ifelse(sign(sum(sign(pca$co[,Axis2])))<0,-1,1)
 
-
-  plot(0, ylim=ylim, xlim=xlim, t="n", axes=F, asp = T,
+  plot.new()
+  plot.window(ylim=ylim, xlim=xlim, asp = T,
        xlab = paste0("Component ", Axis1," (",eigen[Axis1],"%)"),
        ylab = paste0("Component ", Axis2, " (",eigen[Axis2],"%)"))
   mult <- 0.9 / max(abs(range(pca$li)))
