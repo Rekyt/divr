@@ -12,7 +12,9 @@
 #' data("mtcars")
 #' cor_nwk(mtcars)
 #'
-#' @import graphics corrplot
+#' @import graphics
+#' @importFrom corrplot corrMatOrder
+#' @importFrom utils combn
 #'
 #' @export
 
@@ -21,7 +23,7 @@ cor_nwk <- function(dat, labels = NA, method = "pearson", col = c(1, "grey80")){
 
   if(!is.na(labels)) colnames(dat) <- labels
   value <- cor(dat, method = method)
-  dat <- dat[, corrplot::corrMatOrder(value)]
+  dat <- dat[, corrMatOrder(value)]
   value <- cor(dat, method = method)
 
   angles <- seq(0, 2*pi, length.out = ncol(dat)+1)[-1]
