@@ -7,7 +7,7 @@
 #' @param method method used for the correlation test
 #' @param col 2 length vector of color names for positive and negative correlation
 #'
-#'#' @examples
+#' @examples
 #'
 #' data("mtcars")
 #' cor_nwk(mtcars)

@@ -13,13 +13,14 @@ cor_nwk(dat, labels = NA, method = "pearson", col = c(1, "grey80"))
 
 \item{method}{method used for the correlation test}
 
-\item{col}{2 length vector of color names for positive and negative correlation
-
-#' @examples
-
-data("mtcars")
-cor_nwk(mtcars)}
+\item{col}{2 length vector of color names for positive and negative correlation}
 }
 \description{
 Summary diagram of the correlations between variables
+}
+\examples{
+
+data("mtcars")
+cor_nwk(mtcars)
+
 }
