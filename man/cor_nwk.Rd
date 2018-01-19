@@ -4,8 +4,8 @@
 \alias{cor_nwk}
 \title{Plot a correlation diagram}
 \usage{
-cor_nwk(dat, labels = NA, method = "pearson", order = TRUE, col = c(1,
-  "grey80"))
+cor_nwk(dat, labels = NA, method = "pearson", pval.adjust = NULL,
+  order = TRUE, col = c(1, "grey80"))
 }
 \arguments{
 \item{dat}{a matrix or data.frame with variables in column}
@@ -14,15 +14,16 @@ cor_nwk(dat, labels = NA, method = "pearson", order = TRUE, col = c(1,
 
 \item{method}{method used for the correlation test}
 
-\item{order}{logical to order according to a clustering method}
+\item{pval.adjust}{method to adjust p-values in "holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr"}
 
-\item{col}{2 length vector of color names for positive and negative correlation}
+\item{order}{logical to order variables according to a clustering method}
+
+\item{col}{2 length vector of colour names for positive and negative correlation}
 }
 \description{
 Summary diagram of the correlations between variables
 }
 \examples{
-
 data("mtcars")
 cor_nwk(mtcars)
 
