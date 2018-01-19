@@ -30,10 +30,12 @@ cor_nwk <- function(dat, labels = NA, method = "pearson", pval.adjust = NULL,
   value <- cor(dat, method = method)
   if (order) dat <- dat[, corrMatOrder(value)]
   value <- cor(dat, method = method)
-  if (! is.null(pval.adjust) &
-      ! pval.adjust %in% c("holm", "hochberg", "hommel",
-                           "bonferroni", "BH", "BY", "fdr", "none")){
-    stop("pval.adjust incorrect")
+
+  if (!is.null(pval.adjust)){
+    if (! pval.adjust %in% c("holm", "hochberg", "hommel",
+                             "bonferroni", "BH", "BY", "fdr", "none")){
+      stop("pval.adjust incorrect")
+    }
   }
 
   angles <- seq(0, 2*pi, length.out = ncol(dat)+1)[-1]
@@ -56,7 +58,7 @@ cor_nwk <- function(dat, labels = NA, method = "pearson", pval.adjust = NULL,
   allcomb <- allcomb[, ordre]
 
   df <- nrow(dat) - 2
-  if (! is.null(pval.adjust)) p.seuil <- p.adjust(0.05, pval.adjust, n = ncol(allcomb))
+  p.seuil <- 0.05
   critical.t <- qt(p.seuil/2, df, lower.tail = F)
   critical.r <- sqrt((critical.t^2) / ( (critical.t^2) + df))
 
@@ -66,13 +68,13 @@ cor_nwk <- function(dat, labels = NA, method = "pearson", pval.adjust = NULL,
     test <- cor.test(dat[, allcomb[1, i]], dat[, allcomb[2, i]], method = method)
     val <- test$estimate
     pval <- test$p.value
-    if (! is.null(pval.adjust)) pval <- p.adjust(pval, pval.adjust, n = ncol(allcomb))
+    if (!is.null(pval.adjust)) pval <- p.adjust(pval, pval.adjust, n = ncol(allcomb))
 
     lwd <- which(wd < abs(val))
     if(length(lwd) == 0 & pval < 0.05) lwd <- 1
     coli <- ifelse(val > 0, col[1], col[2])
     loc <- pts[pts$var %in% allcomb[, i], -1]
-    if(length(lwd) > 0) segments(loc[1,1], loc[1,2], loc[2,1], loc[2,2], lwd = max(lwd), col = coli)
+    if(length(lwd) > 0 & pval < 0.05) segments(loc[1,1], loc[1,2], loc[2,1], loc[2,2], lwd = max(lwd), col = coli)
     if(pval < 0.1 & pval > 0.05) segments(loc[1,1], loc[1,2], loc[2,1], loc[2,2], lty = 3, col = coli)
   }
 
