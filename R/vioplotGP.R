@@ -6,22 +6,18 @@
 #' @param x a numeric vector of data
 #' @param gp factors with the same length as x describing groups
 #' @param weights a numeric vector with the same length as x
-#' @param labels ?
-#' @param xlab ?
-#' @param xlim ?
-#' @param ylim ?
-#' @param at ?
+#' @param labels group names in the same order than \code{gp} levels
+#' @param xlab label for the x-axis
+#' @param xlim, ylim range of values used for x and y-axes
+#' @param at position of each group in the y-axis
 #' @param wex the maximum value for the density curve
 #' @param h the kernel density smoothing parameter
 #' @param nblim minimum length of x for computing the kernel density
 #' @param Test a character value for group comparison tests "tukey" or "wilcox"
-#' @param adj.Test ?
-#' @param side.Test ?
-#' @param line.Test ?
+#' @param adj.Test,side.Test,line.Test position paramters for the test value and P.value
 #' @param Fname ?
-#' @param type.letters ?
-#' @param pos.letters ?
-#' @param col.letters ?
+#' @param type.letters if Test is done, "latin" or "greek" letters are used to show significant differences between groups
+#' @param pos.letters,col.letters position (1, 2, 3 or 4) and colors for letters
 #' @param add if TRUE adds the plot to the current plot window
 #' @param col ?
 #' @param pch ?
@@ -74,10 +70,17 @@ vioplotGP <- function(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
   if (!(type.letters%in%c("latin","greek"))) {
     stop("Test argument should be 'latin' or 'greek'")
   }
-
   if (!side %in% c("above", "below", "right", "left", "both")) {
     stop('side argument should be "above","below", "right", "left" or "both"')
   }
+  if (length(x) != length(gp)) {
+    stop("x and gp are not the same length")
+  }
+
+  #### remove NA values ####
+  gp <- as.factor(gp[!is.na(x)])
+  if(!is.null(weights)) weights <- weights[!is.na(x)]
+  x <- x[!is.na(x)]
 
   #### data descriptors ####
   ngp <- nlevels(gp)

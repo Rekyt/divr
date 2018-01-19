@@ -15,10 +15,13 @@ URL: https://github.com/Rekyt/divr
 BugReports: https://github.com/Rekyt/divr/issues
 RoxygenNote: 6.0.1
 Imports:
-  stats,
+  corrplot,
   graphics,
   multcomp,
-  plot3D
+  plot3D,
+  plotrix,
+  stats,
+  utils
 Suggests:
   ape,
   ggplot2,
