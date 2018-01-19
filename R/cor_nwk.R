@@ -3,7 +3,8 @@
 #' Summary diagram of the correlations between variables
 #'
 #' @param dat a matrix or data.frame with variables in column
-#' @param labels custum label vector in the same order than column names
+#' @param labels custom label vector in the same order than column names
+#' @param order logical to order according to a clustering method
 #' @param method method used for the correlation test
 #' @param col 2 length vector of color names for positive and negative correlation
 #'
@@ -16,14 +17,16 @@
 #' @importFrom corrplot corrMatOrder
 #' @importFrom utils combn
 #'
+#' @author Jules Segrestin
+#'
 #' @export
 
 
-cor_nwk <- function(dat, labels = NA, method = "pearson", col = c(1, "grey80")){
+cor_nwk <- function(dat, labels = NA, method = "pearson", order = TRUE, col = c(1, "grey80")){
 
   if(!is.na(labels)) colnames(dat) <- labels
   value <- cor(dat, method = method)
-  dat <- dat[, corrMatOrder(value)]
+  if (order) dat <- dat[, corrMatOrder(value)]
   value <- cor(dat, method = method)
 
   angles <- seq(0, 2*pi, length.out = ncol(dat)+1)[-1]

@@ -4,14 +4,17 @@
 \alias{cor_nwk}
 \title{Plot a correlation diagram}
 \usage{
-cor_nwk(dat, labels = NA, method = "pearson", col = c(1, "grey80"))
+cor_nwk(dat, labels = NA, method = "pearson", order = TRUE, col = c(1,
+  "grey80"))
 }
 \arguments{
 \item{dat}{a matrix or data.frame with variables in column}
 
-\item{labels}{custum label vector in the same order than column names}
+\item{labels}{custom label vector in the same order than column names}
 
 \item{method}{method used for the correlation test}
+
+\item{order}{logical to order according to a clustering method}
 
 \item{col}{2 length vector of color names for positive and negative correlation}
 }
@@ -23,4 +26,7 @@ Summary diagram of the correlations between variables
 data("mtcars")
 cor_nwk(mtcars)
 
+}
+\author{
+Jules Segrestin
 }
