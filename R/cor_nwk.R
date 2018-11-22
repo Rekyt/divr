@@ -2,12 +2,13 @@
 #'
 #' Summary diagram of the correlations between variables
 #'
-#' @param dat a matrix or data.frame with variables in column
-#' @param labels custom label vector in the same order than column names
-#' @param order logical to order variables according to a clustering method
-#' @param method method used for the correlation test
-#' @param pval.adjust method to adjust p-values in "holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr"
-#' @param col 2 length vector of colour names for positive and negative correlation
+#' @param dat a matrix or data.frame with variables in column.
+#' @param labels custom label vector in the same order than column names.
+#' @param order logical to order variables according to a clustering method.
+#' @param method method used for the correlation test. One of "pearson" (default), "kendall", or "spearman".
+#' @param p.critic Critical p.value under which a correlation line should be drawn
+#' @param pval.adjust method to adjust p-values in "holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr".
+#' @param col 2 length vector of colour names for positive and negative correlation.
 #'
 #' @examples
 #' data("mtcars")
@@ -23,7 +24,7 @@
 #' @export
 
 
-cor_nwk <- function(dat, labels = NA, method = "pearson", pval.adjust = NULL,
+cor_nwk <- function(dat, labels = NA, method = "pearson", p.critic = 0.05, pval.adjust = NULL,
                     order = TRUE, col = c(1, "grey80")){
 
   if(!is.na(labels)) colnames(dat) <- labels
@@ -58,7 +59,7 @@ cor_nwk <- function(dat, labels = NA, method = "pearson", pval.adjust = NULL,
   allcomb <- allcomb[, ordre]
 
   df <- nrow(dat) - 2
-  p.seuil <- 0.05
+  p.seuil <- p.critic
   critical.t <- qt(p.seuil/2, df, lower.tail = F)
   critical.r <- sqrt((critical.t^2) / ( (critical.t^2) + df))
 
@@ -71,11 +72,11 @@ cor_nwk <- function(dat, labels = NA, method = "pearson", pval.adjust = NULL,
     if (!is.null(pval.adjust)) pval <- p.adjust(pval, pval.adjust, n = ncol(allcomb))
 
     lwd <- which(wd < abs(val))
-    if(length(lwd) == 0 & pval < 0.05) lwd <- 1
+    if(length(lwd) == 0 & pval < p.critic) lwd <- 1
     coli <- ifelse(val > 0, col[1], col[2])
     loc <- pts[pts$var %in% allcomb[, i], -1]
     if(length(lwd) > 0 & pval < 0.05) segments(loc[1,1], loc[1,2], loc[2,1], loc[2,2], lwd = max(lwd), col = coli)
-    if(pval < 0.1 & pval > 0.05) segments(loc[1,1], loc[1,2], loc[2,1], loc[2,2], lty = 3, col = coli)
+    #if(pval < 0.1 & pval > 0.05) segments(loc[1,1], loc[1,2], loc[2,1], loc[2,2], lty = 3, col = coli)
   }
 
   points(pts$x, pts$y, pch = 16)
