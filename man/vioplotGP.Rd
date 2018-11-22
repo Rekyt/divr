@@ -5,12 +5,13 @@
 \title{Violin plots for Groups}
 \usage{
 vioplotGP(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
-  ylim = NA, at = NA, wex = 0.75, h = NA, nblim = 10, Test = NA,
-  adj.Test = 0.01, line.Test = NA, side.Test = 3, Fname = NA,
-  type.letters = "latin", pos.letters = 1, col.letters = 1, add = F,
-  col = 1, pch = 19, lwd = 1, lty = 1, cex = 1, cex.points = 1,
-  col.points = 1, bg = 1, las = 0, boxplot = TRUE, side = "above",
-  fill = NA, pts = TRUE, boxplot.fill = "white", horizontal = TRUE)
+  ylim = NA, at = NA, wex = 0.75, h = NA, nblim = 10,
+  Test = NA, adj.Test = 0.01, line.Test = NA, side.Test = 3,
+  Fname = NA, type.letters = "latin", pos.letters = 1,
+  col.letters = 1, add = F, col = 1, pch = 19, lwd = 1,
+  lty = 1, cex = 1, cex.points = 1, col.points = 1, bg = 1,
+  las = 0, boxplot = TRUE, side = "above", fill = NA, pts = TRUE,
+  boxplot.fill = "white", horizontal = TRUE)
 }
 \arguments{
 \item{x}{a numeric vector of data}

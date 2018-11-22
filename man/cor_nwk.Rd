@@ -4,21 +4,23 @@
 \alias{cor_nwk}
 \title{Plot a correlation diagram}
 \usage{
-cor_nwk(dat, labels = NA, method = "pearson", pval.adjust = NULL,
-  order = TRUE, col = c(1, "grey80"))
+cor_nwk(dat, labels = NA, method = "pearson", p.critic = 0.05,
+  pval.adjust = NULL, order = TRUE, col = c(1, "grey80"))
 }
 \arguments{
-\item{dat}{a matrix or data.frame with variables in column}
+\item{dat}{a matrix or data.frame with variables in column.}
 
-\item{labels}{custom label vector in the same order than column names}
+\item{labels}{custom label vector in the same order than column names.}
 
-\item{method}{method used for the correlation test}
+\item{method}{method used for the correlation test. One of "pearson" (default), "kendall", or "spearman".}
 
-\item{pval.adjust}{method to adjust p-values in "holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr"}
+\item{p.critic}{Critical p.value under which a correlation line should be drawn}
 
-\item{order}{logical to order variables according to a clustering method}
+\item{pval.adjust}{method to adjust p-values in "holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr".}
 
-\item{col}{2 length vector of colour names for positive and negative correlation}
+\item{order}{logical to order variables according to a clustering method.}
+
+\item{col}{2 length vector of colour names for positive and negative correlation.}
 }
 \description{
 Summary diagram of the correlations between variables

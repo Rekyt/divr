@@ -5,8 +5,8 @@
 \title{Plot method for \code{pca} objects}
 \usage{
 \method{plot}{pca}(pca, axes = c(1, 2), xlim = c(-1.2, 1.2),
-  ylim = c(-1.2, 1.2), ind = FALSE, pch = 21, bg = "white", cex.p = 1,
-  las = 1, var.labels = NULL, ...)
+  ylim = c(-1.2, 1.2), ind = FALSE, pch = 21, bg = "white",
+  cex.p = 1, las = 1, var.labels = NULL, ...)
 }
 \arguments{
 \item{pca}{a \code{pca} object from the \code{dudi.pca} function in \code{ade4}}

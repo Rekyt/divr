@@ -5,10 +5,10 @@
 \title{violin plots}
 \usage{
 vioplot(x, weights = NULL, xlim = NA, ylim = NA, xlab = NA,
-  label = "none", wex = 0.75, h = NA, add = F, nblim = 10, at = 1,
-  pch = 19, lwd = 1, col = 1, col.points = 1, lty = 1, cex = 1,
-  las = 0, boxplot = TRUE, bg = 1, side = "above", fill = NA,
-  pts = TRUE, boxplot.fill = "white", horizontal = TRUE)
+  label = "none", wex = 0.75, h = NA, add = F, nblim = 10,
+  at = 1, pch = 19, lwd = 1, col = 1, col.points = 1, lty = 1,
+  cex = 1, las = 0, boxplot = TRUE, bg = 1, side = "above",
+  fill = NA, pts = TRUE, boxplot.fill = "white", horizontal = TRUE)
 }
 \arguments{
 \item{x}{a numeric vector of data}

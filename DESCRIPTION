@@ -13,7 +13,7 @@ License: GPL (>= 2)
 LazyData: TRUE
 URL: https://github.com/Rekyt/divr
 BugReports: https://github.com/Rekyt/divr/issues
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 Imports:
   corrplot,
   graphics,
