@@ -27,7 +27,7 @@
 cor_nwk <- function(dat, labels = NA, method = "pearson", p.critic = 0.05, pval.adjust = NULL,
                     order = TRUE, col = c(1, "grey80")){
 
-  if(!is.na(labels)) colnames(dat) <- labels
+  if(all(!is.na(labels))) colnames(dat) <- labels
   value <- cor(dat, method = method)
   if (order) dat <- dat[, corrMatOrder(value)]
   value <- cor(dat, method = method)
@@ -52,7 +52,7 @@ cor_nwk <- function(dat, labels = NA, method = "pearson", p.critic = 0.05, pval.
     if(a == 2) b <- ifelse(pts[i, -1][a] > 0 , 3, 1)
     pos <- c(pos, b)
   }
-  text(pts$x * 1.1, pts$y * 1.1, colnames(dat), pos = pos)
+  text(pts$x * 1.1, pts$y * 1.1, parse(text = colnames(dat)), pos = pos)
 
   allcomb <- combn(colnames(dat), 2)
   ordre <- order(abs(apply(allcomb, MARGIN = 2, function(x) value[x[1], x[2]])))
