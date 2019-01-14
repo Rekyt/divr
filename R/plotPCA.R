@@ -28,13 +28,15 @@ plot.pca <- function(pca, axes = c(1, 2), xlim=c(-1.2,1.2), ylim=c(-1.2,1.2),
   signy<-ifelse(sign(sum(sign(pca$co[,Axis2])))<0,-1,1)
 
   plot.new()
-  plot.window(ylim=ylim, xlim=xlim, asp = T,
-       xlab = paste0("Component ", Axis1," (",eigen[Axis1],"%)"),
-       ylab = paste0("Component ", Axis2, " (",eigen[Axis2],"%)"))
+  plot.window(ylim=ylim, xlim=xlim, asp = T)
+  title(xlab = paste0("Component ", Axis1," (",eigen[Axis1],"%)"),
+        ylab = paste0("Component ", Axis2, " (",eigen[Axis2],"%)"))
+  axis(1); axis(2)
+
   mult <- 0.9 / max(abs(range(pca$li)))
-  if(ind) points(signx*pca$li[,Axis1]*mult,signy*pca$li[,Axis2]*mult, pch=pch, bg=bg, cex = cex.p, ...)
   plotrix::draw.circle(0, 0, 1, lty=2, border ="grey75")
   segments(c(0,-1),c(-1,0),c(0,1), c(1,0), lty=2, col="grey70")
+  if(ind) points(signx*pca$li[,Axis1]*mult,signy*pca$li[,Axis2]*mult, pch=pch, bg=bg, cex = cex.p, ...)
   arrows(0,0,signx*pca$co[,Axis1],signy*pca$co[,Axis2], lwd=1, length = .08)
 
   if(!is.null(var.labels)) row.names(pca$co) <- var.labels
@@ -50,6 +52,5 @@ plot.pca <- function(pca, axes = c(1, 2), xlim=c(-1.2,1.2), ylim=c(-1.2,1.2),
     text(signx*pca$co[,Axis1]+dep[1,z],signy*pca$co[,Axis2]+dep[2,z],parse(text = row.names(pca$co)), pos=pos, col="white", font = 2)
   }
   text(signx*pca$co[,Axis1],signy*pca$co[,Axis2],parse(text = row.names(pca$co)), pos=pos, cex = .8)
-
-  axis(1); axis(2)
 }
+
