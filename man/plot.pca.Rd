@@ -5,8 +5,8 @@
 \title{Plot method for \code{pca} objects}
 \usage{
 \method{plot}{pca}(pca, axes = c(1, 2), xlim = c(-1.2, 1.2),
-  ylim = c(-1.2, 1.2), ind = FALSE, pch = 21, bg = "white",
-  cex.p = 1, las = 1, var.labels = NULL, ...)
+  ylim = c(-1.2, 1.2), ind = FALSE, cex.p = 1, las = 1,
+  var.labels = NULL, var.pos = NULL, ...)
 }
 \arguments{
 \item{pca}{a \code{pca} object from the \code{dudi.pca} function in \code{ade4}}
@@ -17,15 +17,15 @@
 
 \item{ind}{logical value to project individuals in the correlation circle using standardized axes}
 
-\item{pch}{symbole code for individuals points if \code{ind} is TRUE}
-
-\item{bg}{color used for individuals points if \code{ind} is TRUE}
-
 \item{cex.p}{individuals points size if \code{ind} is TRUE}
 
 \item{las}{text orientation on axes}
 
-\item{var.labels}{character string or expression used for variable names}
+\item{var.labels}{character string or mathplot code used for variable names}
+
+\item{var.pos}{variable name position in 1, 2, 3, 4 using a named vector}
+
+\item{...}{extra parameters to custom points in \code{ind} is TRUE}
 }
 \description{
 Custom function to plot \code{pca} objects from \code{ade4} package
