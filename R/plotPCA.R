@@ -53,11 +53,13 @@ plot.pca <- function(pca, axes = c(1, 2), xlim=c(-1.2,1.2), ylim=c(-1.2,1.2),
   if(!is.null(var.pos) & !is.null(names(var.pos))){
     if(any(names(var.pos) %in% var.labels)) pos[match(names(var.pos), var.labels)] <- var.pos
   }
-  dep<-cbind(c(0,0),c(0,.01),c(0,-.01),
-             c(.01,0),c(.01,.01),c(.01,-.01),
-             c(-.01,0),c(-.01,.01),c(-.01,-.01))
+  dep <- .005 * cbind(c(0,0),c(0,1),c(0,-1),
+                     c(1,0),c(1,1),c(1,-1),
+                     c(-1,0),c(-1,1),c(-1,-1))
   for(z in 1:9){
-    text(signx*pca$co[,Axis1]+dep[1,z],signy*pca$co[,Axis2]+dep[2,z],parse(text = row.names(pca$co)), pos=pos, col="white", font = 2)
+    text(signx*pca$co[,Axis1]+dep[1,z], signy*pca$co[,Axis2]+dep[2,z],
+         parse(text = row.names(pca$co)), pos=pos, cex = .8,
+         col="white", font = 2)
   }
   text(signx*pca$co[,Axis1],signy*pca$co[,Axis2],parse(text = row.names(pca$co)), pos=pos, cex = .8)
   par(las = par0)
