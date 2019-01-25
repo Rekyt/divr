@@ -4,6 +4,7 @@
 #'
 #' @param dat a matrix or data.frame with variables in column.
 #' @param labels custom label vector in the same order than column names.
+#' @param phylo NULL or an object of class \code{phylo} representing the phylogeny (with branch lengths) to consider
 #' @param order logical to order variables according to a clustering method.
 #' @param method method used for the correlation test. One of "pearson" (default), "kendall", or "spearman".
 #' @param p.critic Critical p.value under which a correlation line should be drawn
@@ -24,14 +25,12 @@
 #' @export
 
 
-cor_nwk <- function(dat, labels = NA, method = "pearson", p.critic = 0.05, pval.adjust = NULL,
+cor_nwk <- function(dat, labels = NA, phylo = NULL, method = "pearson", p.critic = 0.05, pval.adjust = NULL,
                     order = TRUE, col = c(1, "grey80")){
 
+  #ajuste le jeu de donnees selon les arguments
   if(all(!is.na(labels))) colnames(dat) <- labels
-  value <- cor(dat, method = method)
-  if (order) dat <- dat[, corrMatOrder(value)]
-  value <- cor(dat, method = method)
-
+  if (order) dat <- dat[, corrMatOrder(cor(dat, method = method))]
   if (!is.null(pval.adjust)){
     if (! pval.adjust %in% c("holm", "hochberg", "hommel",
                              "bonferroni", "BH", "BY", "fdr", "none")){
@@ -39,6 +38,7 @@ cor_nwk <- function(dat, labels = NA, method = "pearson", p.critic = 0.05, pval.
     }
   }
 
+  #plot the names of variables
   angles <- seq(0, 2*pi, length.out = ncol(dat)+1)[-1]
   pts <- data.frame(var = colnames(dat), x = sin(angles), y = cos(angles))
   plot.new()
@@ -54,30 +54,44 @@ cor_nwk <- function(dat, labels = NA, method = "pearson", p.critic = 0.05, pval.
   }
   text(pts$x * 1.1, pts$y * 1.1, parse(text = colnames(dat)), pos = pos)
 
+  #calcul du r.critic
+
   allcomb <- combn(colnames(dat), 2)
-  ordre <- order(abs(apply(allcomb, MARGIN = 2, function(x) value[x[1], x[2]])))
-  allcomb <- allcomb[, ordre]
-
   df <- nrow(dat) - 2
-  p.seuil <- p.critic
-  critical.t <- qt(p.seuil/2, df, lower.tail = F)
-  critical.r <- sqrt((critical.t^2) / ( (critical.t^2) + df))
+  r <- seq(0, .99, .01)
+  t <- r * sqrt(df/(1-r^2))
+  p <- 2  * pmin(pt(t, df = df, lower.tail = FALSE),
+                pt(t, df = df, lower.tail = TRUE))
+  if (!is.null(pval.adjust)) p <- sapply(p, function(x) p.adjust(x, pval.adjust, n = ncol(allcomb)))
+  r.critic <- approx(p, r, p.critic)$y
 
-  wd <- seq(critical.r, 1, length.out = 6)
+  wd <- seq(r.critic, 1, length.out = 4)
+
+  #calcul du test de correlation et segments
 
   for (i in 1:ncol(allcomb)){
-    test <- cor.test(dat[, allcomb[1, i]], dat[, allcomb[2, i]], method = method)
-    val <- test$estimate
-    pval <- test$p.value
+
+    x <- dat[, allcomb[1, i]]; names(x) <- rownames(dat)
+    y <- dat[, allcomb[2, i]]; names(y) <- rownames(dat)
+
+    if(is.null(phylo)){
+      test <- cor.test(x, y, method = method)
+      val <- test$estimate
+      pval <- test$p.value
+    } else {
+      test <- phylo.cor.test(x, y, tree = phylo, method = "pcov")
+      val <- test$r
+      pval <- test$p.value
+    }
+
     if (!is.null(pval.adjust)) pval <- p.adjust(pval, pval.adjust, n = ncol(allcomb))
 
-    lwd <- which(wd < abs(val))
-    if(length(lwd) == 0 & pval < p.critic) lwd <- 1
-    coli <- ifelse(val > 0, col[1], col[2])
-    loc <- pts[pts$var %in% allcomb[, i], -1]
-    if(length(lwd) > 0 & pval < 0.05) segments(loc[1,1], loc[1,2], loc[2,1], loc[2,2], lwd = max(lwd), col = coli)
-    #if(pval < 0.1 & pval > 0.05) segments(loc[1,1], loc[1,2], loc[2,1], loc[2,2], lty = 3, col = coli)
+    if(pval < p.critic){
+      lwd <- max(which(wd < abs(val)))
+      coli <- ifelse(val > 0, col[1], col[2])
+      loc <- pts[pts$var %in% allcomb[, i], -1]
+      segments(loc[1,1], loc[1,2], loc[2,1], loc[2,2], lwd = lwd, col = coli)
+    }
   }
-
   points(pts$x, pts$y, pch = 16)
 }

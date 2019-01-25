@@ -4,13 +4,16 @@
 \alias{cor_nwk}
 \title{Plot a correlation diagram}
 \usage{
-cor_nwk(dat, labels = NA, method = "pearson", p.critic = 0.05,
-  pval.adjust = NULL, order = TRUE, col = c(1, "grey80"))
+cor_nwk(dat, labels = NA, phylo = NULL, method = "pearson",
+  p.critic = 0.05, pval.adjust = NULL, order = TRUE, col = c(1,
+  "grey80"))
 }
 \arguments{
 \item{dat}{a matrix or data.frame with variables in column.}
 
 \item{labels}{custom label vector in the same order than column names.}
+
+\item{phylo}{NULL or an object of class \code{phylo} representing the phylogeny (with branch lengths) to consider}
 
 \item{method}{method used for the correlation test. One of "pearson" (default), "kendall", or "spearman".}
 
