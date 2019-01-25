@@ -28,7 +28,7 @@
 cor_nwk <- function(dat, labels = NA, phylo = NULL, method = "pearson", p.critic = 0.05, pval.adjust = NULL,
                     order = TRUE, col = c(1, "grey80")){
 
-  #ajuste le jeu de donnees selon les arguments
+  # ajuste le jeu de donnees selon les arguments
   if(all(!is.na(labels))) colnames(dat) <- labels
   if (order) dat <- dat[, corrMatOrder(cor(dat, method = method))]
   if (!is.null(pval.adjust)){
@@ -38,7 +38,7 @@ cor_nwk <- function(dat, labels = NA, phylo = NULL, method = "pearson", p.critic
     }
   }
 
-  #plot the names of variables
+  # plot the names of variables
   angles <- seq(0, 2*pi, length.out = ncol(dat)+1)[-1]
   pts <- data.frame(var = colnames(dat), x = sin(angles), y = cos(angles))
   plot.new()
@@ -52,9 +52,9 @@ cor_nwk <- function(dat, labels = NA, phylo = NULL, method = "pearson", p.critic
     if(a == 2) b <- ifelse(pts[i, -1][a] > 0 , 3, 1)
     pos <- c(pos, b)
   }
-  text(pts$x * 1.1, pts$y * 1.1, parse(text = colnames(dat)), pos = pos)
+  text(pts$x * 1.05, pts$y * 1.05, parse(text = colnames(dat)), pos = pos)
 
-  #calcul du r.critic
+  # calcul du r.critic
 
   allcomb <- combn(colnames(dat), 2)
   df <- nrow(dat) - 2
@@ -67,8 +67,9 @@ cor_nwk <- function(dat, labels = NA, phylo = NULL, method = "pearson", p.critic
 
   wd <- seq(r.critic, 1, length.out = 4)
 
-  #calcul du test de correlation et segments
-
+  # calcul du test de correlation
+  val <- NULL
+  pval <- NULL
   for (i in 1:ncol(allcomb)){
 
     x <- dat[, allcomb[1, i]]; names(x) <- rownames(dat)
@@ -76,22 +77,27 @@ cor_nwk <- function(dat, labels = NA, phylo = NULL, method = "pearson", p.critic
 
     if(is.null(phylo)){
       test <- cor.test(x, y, method = method)
-      val <- test$estimate
-      pval <- test$p.value
+      val <- c(val, test$estimate)
+      pval <- c(pval, test$p.value)
     } else {
       test <- phylo.cor.test(x, y, tree = phylo, method = "pcov")
-      val <- test$r
-      pval <- test$p.value
-    }
-
-    if (!is.null(pval.adjust)) pval <- p.adjust(pval, pval.adjust, n = ncol(allcomb))
-
-    if(pval < p.critic){
-      lwd <- max(which(wd < abs(val)))
-      coli <- ifelse(val > 0, col[1], col[2])
-      loc <- pts[pts$var %in% allcomb[, i], -1]
-      segments(loc[1,1], loc[1,2], loc[2,1], loc[2,2], lwd = lwd, col = coli)
+      val <- c(val, test$r)
+      pval <- c(pval, test$p.value)
     }
   }
+
+  #Correction des pval
+  if (!is.null(pval.adjust)) pval <- p.adjust(pval, pval.adjust)
+
+  # Segments
+  for (i in 1:length(pval)){
+    if(pval[i] < p.critic){
+      lwd <- ifelse(abs(val[i]) < wd[1], 1, max(which(wd < abs(val[i]))))
+      coli <- ifelse(val[i] > 0, col[1], col[2])
+      loc <- pts[pts$var %in% allcomb[, i], -1]
+      segments(loc[1,1], loc[1,2], loc[2,1], loc[2,2], lwd = lwd*2-1, col = coli)
+    }
+  }
+
   points(pts$x, pts$y, pch = 16)
 }
