@@ -4,17 +4,22 @@
 \alias{phylo.cor.test}
 \title{Phylogenetic correlation test using Pearson's product moment}
 \usage{
-phylo.cor.test(x, y, tree, method = c("pcov", "pic"))
+phylo.cor.test(x, y, tree, method = c("pcov", "pic"),
+  lambda_est = FALSE, quite = FALSE)
 }
 \arguments{
 \item{x, y}{numeric vectors of data values. x and y must have the same length}
 
-\item{tree}{An object of class phylo representing the phylogeny (with branch lengths) to consider}
+\item{tree}{an object of class \code{phylo} representing the phylogeny (with branch lengths) to consider}
 
 \item{method}{\code{pcov} to use a phylogenetic trait variance-covariance matrix or \code{pic} to use phylogenetically Independent Contrasts}
+
+\item{lambda_est}{if \code{method} is \code{pcov}, logical for lambda otpimization using likelihood, if false lambda = 1 ("BM")}
+
+\item{quite}{logical for function messages}
 }
 \description{
 Test for association between paired samples, using the Pearson's
-product moment correlation coefficient and taking into account
+product moment correlation coefficient and accounting for
 the dataset phylogenetic structure
 }

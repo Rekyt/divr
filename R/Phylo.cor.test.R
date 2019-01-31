@@ -1,18 +1,22 @@
 #' Phylogenetic correlation test using Pearson's product moment
 #'
 #' Test for association between paired samples, using the Pearson's
-#' product moment correlation coefficient and taking into account
+#' product moment correlation coefficient and accounting for
 #' the dataset phylogenetic structure
 #'
 #' @param x,y numeric vectors of data values. x and y must have the same length
-#' @param tree An object of class phylo representing the phylogeny (with branch lengths) to consider
+#' @param tree an object of class \code{phylo} representing the phylogeny (with branch lengths) to consider
 #' @param method \code{pcov} to use a phylogenetic trait variance-covariance matrix or \code{pic} to use phylogenetically Independent Contrasts
+#' @param lambda_est if \code{method} is \code{pcov}, logical for lambda otpimization using likelihood, if false lambda = 1 ("BM")
+#' @param quite logical for function messages
 #'
 #' @import stats
+#' @import ape
+#' @importFrom phytools likMlambda lambda.transform phyl.vcv
 #'
 #' @export
 
-phylo.cor.test <- function(x, y, tree, method = c("pcov", "pic")) {
+phylo.cor.test <- function(x, y, tree, method = c("pcov", "pic"), lambda_est = FALSE, quite = FALSE) {
 
   method <- match.arg(method)
   if (length(x) != length(y)) stop("'x' and 'y' must have the same length")
@@ -20,13 +24,13 @@ phylo.cor.test <- function(x, y, tree, method = c("pcov", "pic")) {
   OK <- complete.cases(x, y)
   x <- x[OK]
   y <- y[OK]
-  if (sum(!OK) > 0) message(paste(sum(!OK),"NA values omitted.\n"))
+  if (sum(!OK) > 0 & !quite) message(paste(sum(!OK),"NA values omitted.\n"))
   if (!inherits(tree, "phylo")) stop("tree should be an object of class 'phylo'")
   if (length(x) > ape::Ntip(tree)) stop("length of 'y' and 'x' cannot be greater than number of taxa in your tree")
 
   if (is.null(names(x)) | is.null(names(y))) {
     if (length(x) < ape::Ntip(tree)) stop("'y' and 'x' have no names. Their length must be equal to the number of taxa in your tree")
-    warning("'y' and 'x' have no names. Function will assume that the order matches tree$tip.label")
+    message("'y' and 'x' have no names. Function will assume that the order matches tree$tip.label")
     X <- cbind(x, y)
     rownames(X) <- tree$tip.label
   } else {
@@ -35,22 +39,35 @@ phylo.cor.test <- function(x, y, tree, method = c("pcov", "pic")) {
     rownames(X) <- X$Row.names
     X <- X[, -1]
     if (!all(rownames(X) %in% tree$tip.label)) stop("Not all 'x' or 'y' names match with tree$tip.label")
-    sup<-which(!tree$tip.label %in% rownames(X))
+    sup <- which(!tree$tip.label %in% rownames(X))
     if (length(sup) > 0) {
-      tree<-ape::drop.tip(tree, sup)
-      message(paste("missing data in 'x' or 'y':",length(sup),"species were removed from the tree before the analysis.\n"))
+      tree <- ape::drop.tip(tree, sup)
+      if(!quite) message(paste("missing data in 'x' or 'y':",length(sup),"species were removed from the tree before the analysis.\n"))
     }
   }
 
+  X <- as.matrix(X[tree$tip.label, ])
+
   if (method == "pcov"){
-    C <- ape::vcv.phylo(tree)[rownames(X), rownames(X)]
-    obj <- phytools::phyl.vcv(as.matrix(X), C, 1)
+    if(lambda_est == TRUE){
+      result <- optimize(f = phytools::likMlambda, interval = c(0, 1),
+                         X = X, C = ape::vcv.phylo(tree),
+                         maximum=TRUE)
+    }else{
+      result<-list(objective = phytools::likMlambda(lambda = 1, X, ape::vcv.phylo(tree)),
+                   maximum=1.0)
+    }
+    est_lambda <- result$maximum
+    C <- ape::vcv.phylo(tree)
+    C <- phytools::lambda.transform(est_lambda, C)
+    obj <- phytools::phyl.vcv(as.matrix(X), C, lambda = est_lambda)
     r.xy <- stats::cov2cor(obj$R)["x","y"]
     t.xy <- r.xy * sqrt((ape::Ntip(tree) - 2) / (1 - r.xy^2))
     P.xy <- 2 * min(pt(t.xy, df = ape::Ntip(tree) - 2, lower.tail = FALSE),
                     pt(t.xy, df = ape::Ntip(tree) - 2, lower.tail = TRUE))
     result <- list(r = r.xy, r.squared = r.xy^2, t = t.xy, df = ape::Ntip(tree) - 2,
-                   p.value = P.xy, method = "the phylogenetic trait variance-covariance matrix")
+                   p.value = P.xy, method = "the phylogenetic trait variance-covariance matrix",
+                   lambda = est_lambda)
     class(result) <- "phycor"
   }
 
@@ -67,9 +84,10 @@ phylo.cor.test <- function(x, y, tree, method = c("pcov", "pic")) {
     P <- 2 * min(pt(t.xy, df = length(picx) - 1, lower.tail = FALSE),
                  pt(t.xy, df = length(picx) - 1, lower.tail = TRUE))
     result <- list(r = r, r.squared = r^2, t = t.xy, df = length(picx) - 1,
-                   p.value = P, method = "Phylogenetically Independent Contrasts")
+                   p.value = P, method = "Phylogenetically Independent Contrasts",
+                   lambda = NA)
     class(result) <- "phycor"
-  }
+    }
 
   return(result)
 }

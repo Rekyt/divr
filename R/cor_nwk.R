@@ -28,6 +28,18 @@
 cor_nwk <- function(dat, labels = NA, phylo = NULL, method = "pearson", p.critic = 0.05, pval.adjust = NULL,
                     order = TRUE, col = c(1, "grey80")){
 
+  # function pour positionner le texte
+  optim_pos <- function(x){
+    pos <- NULL
+    for (i in 1:nrow(x)){
+      a <- which.max(abs(x[i, ]))
+      if(a == 1) b <- ifelse(x[i, ][a] > 0, 4, 2)
+      if(a == 2) b <- ifelse(x[i, ][a] > 0, 3, 1)
+      pos <- c(pos, b)
+    }
+    return(pos)
+  }
+
   # ajuste le jeu de donnees selon les arguments
   if(all(!is.na(labels))) colnames(dat) <- labels
   if (order) dat <- dat[, corrMatOrder(cor(dat, method = method))]
@@ -45,13 +57,7 @@ cor_nwk <- function(dat, labels = NA, phylo = NULL, method = "pearson", p.critic
   plot.window(xlab = "", ylab = "", asp = T,
               xlim = c (-1.3, 1.3), ylim = c(-1.3, 1.3))
 
-  pos <- NULL
-  for (i in 1:length(pts$var)){
-    a <- which.max(abs(pts[i, -1]))
-    if(a == 1) b <- ifelse(pts[i, -1][a] > 0 , 4, 2)
-    if(a == 2) b <- ifelse(pts[i, -1][a] > 0 , 3, 1)
-    pos <- c(pos, b)
-  }
+  pos <- optim_pos(pts[,-1])
   text(pts$x * 1.05, pts$y * 1.05, parse(text = colnames(dat)), pos = pos)
 
   # calcul du r.critic
@@ -70,6 +76,7 @@ cor_nwk <- function(dat, labels = NA, phylo = NULL, method = "pearson", p.critic
   # calcul du test de correlation
   val <- NULL
   pval <- NULL
+  lambda <- NULL
   for (i in 1:ncol(allcomb)){
 
     x <- dat[, allcomb[1, i]]; names(x) <- rownames(dat)
@@ -80,9 +87,10 @@ cor_nwk <- function(dat, labels = NA, phylo = NULL, method = "pearson", p.critic
       val <- c(val, test$estimate)
       pval <- c(pval, test$p.value)
     } else {
-      test <- phylo.cor.test(x, y, tree = phylo, method = "pcov")
+      test <- phylo.cor.test(x, y, tree = phylo, method = "pcov", lambda_est = TRUE, quite = T)
       val <- c(val, test$r)
       pval <- c(pval, test$p.value)
+      lambda <- c(lambda, test$lambda)
     }
   }
 
@@ -96,6 +104,14 @@ cor_nwk <- function(dat, labels = NA, phylo = NULL, method = "pearson", p.critic
       coli <- ifelse(val[i] > 0, col[1], col[2])
       loc <- pts[pts$var %in% allcomb[, i], -1]
       segments(loc[1,1], loc[1,2], loc[2,1], loc[2,2], lwd = lwd*2-1, col = coli)
+      if(!all(is.null(lambda))){
+        xl <- mean(loc[, 1])
+        yl <- mean(loc[, 2])
+        posl <- optim_pos(matrix(c(xl, yl), 1))
+        rot <- atan(diff(loc[, 2]) / diff(loc[, 1])) * 180/pi
+        text(x = xl, y = yl, pos = posl, cex = .7, srt = rot, col = coli,
+             parse(text = paste("lambda*'='*", round(lambda[i], 2))))
+      }
     }
   }
 
