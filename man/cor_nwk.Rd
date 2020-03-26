@@ -6,7 +6,7 @@
 \usage{
 cor_nwk(dat, labels = NA, phylo = NULL, method = "pearson",
   p.critic = 0.05, pval.adjust = NULL, order = TRUE, col = c(1,
-  "grey80"))
+  "grey50"), lty = c(1, 1))
 }
 \arguments{
 \item{dat}{a matrix or data.frame with variables in column.}
@@ -24,6 +24,8 @@ cor_nwk(dat, labels = NA, phylo = NULL, method = "pearson",
 \item{order}{logical to order variables according to a clustering method.}
 
 \item{col}{2 length vector of colour names for positive and negative correlation.}
+
+\item{lty}{2 length vector of line type for positive and negative correlation (see \code{par} for more details).}
 }
 \description{
 Summary diagram of the correlations between variables

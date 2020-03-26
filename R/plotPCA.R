@@ -7,6 +7,7 @@
 #' @param xlim,ylim numeric vectors of length 2, giving the x and y coordinates ranges
 #' @param ind logical value to project individuals in the correlation circle using standardized axes
 #' @param cex.p individuals points size if \code{ind} is TRUE
+#' @param cex.v variable name size
 #' @param las text orientation on axes
 #' @param var.labels character string or mathplot code used for variable names
 #' @param var.pos variable name position in 1, 2, 3, 4 using a named vector
@@ -18,7 +19,7 @@
 
 
 plot.pca <- function(pca, axes = c(1, 2), xlim=c(-1.2,1.2), ylim=c(-1.2,1.2),
-                     ind = FALSE, cex.p = 1, las = 1,
+                     ind = FALSE, cex.p = 1, cex.v = .8, las = 1,
                      var.labels = NULL, var.pos = NULL, ...){
 
   par0 <- par()$las
@@ -58,10 +59,10 @@ plot.pca <- function(pca, axes = c(1, 2), xlim=c(-1.2,1.2), ylim=c(-1.2,1.2),
                      c(-1,0),c(-1,1),c(-1,-1))
   for(z in 1:9){
     text(signx*pca$co[,Axis1]+dep[1,z], signy*pca$co[,Axis2]+dep[2,z],
-         parse(text = row.names(pca$co)), pos=pos, cex = .8,
+         parse(text = row.names(pca$co)), pos=pos, cex = cex.v,
          col="white", font = 2)
   }
-  text(signx*pca$co[,Axis1],signy*pca$co[,Axis2],parse(text = row.names(pca$co)), pos=pos, cex = .8)
+  text(signx*pca$co[,Axis1],signy*pca$co[,Axis2],parse(text = row.names(pca$co)), pos=pos, cex = cex.v)
   par(las = par0)
 }
 

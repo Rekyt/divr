@@ -10,6 +10,7 @@
 #' @param p.critic Critical p.value under which a correlation line should be drawn
 #' @param pval.adjust method to adjust p-values in "holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr".
 #' @param col 2 length vector of colour names for positive and negative correlation.
+#' @param lty 2 length vector of line type for positive and negative correlation (see \code{par} for more details).
 #'
 #' @examples
 #' data("mtcars")
@@ -26,7 +27,7 @@
 
 
 cor_nwk <- function(dat, labels = NA, phylo = NULL, method = "pearson", p.critic = 0.05, pval.adjust = NULL,
-                    order = TRUE, col = c(1, "grey80")){
+                    order = TRUE, col = c(1, "grey50"), lty = c(1, 1)){
 
   # function pour positionner le texte
   optim_pos <- function(x){
@@ -102,18 +103,26 @@ cor_nwk <- function(dat, labels = NA, phylo = NULL, method = "pearson", p.critic
     if(pval[i] < p.critic){
       lwd <- ifelse(abs(val[i]) < wd[1], 1, max(which(wd < abs(val[i]))))
       coli <- ifelse(val[i] > 0, col[1], col[2])
+      ltyi <- ifelse(val[i] > 0, lty[1], lty[2])
       loc <- pts[pts$var %in% allcomb[, i], -1]
-      segments(loc[1,1], loc[1,2], loc[2,1], loc[2,2], lwd = lwd*2-1, col = coli)
+      segments(loc[1,1], loc[1,2], loc[2,1], loc[2,2], lwd = lwd*2, col = coli, lty = ltyi)
       if(!all(is.null(lambda))){
         xl <- mean(loc[, 1])
         yl <- mean(loc[, 2])
-        posl <- optim_pos(matrix(c(xl, yl), 1))
         rot <- atan(diff(loc[, 2]) / diff(loc[, 1])) * 180/pi
-        text(x = xl, y = yl, pos = posl, cex = .7, srt = rot, col = coli,
+
+        dep <- .005 * cbind(c(0,0),c(0,1),c(0,-1),
+                            c(1,0),c(1,1),c(1,-1),
+                            c(-1,0),c(-1,1),c(-1,-1))
+        for(z in 1:9){
+          text(x = xl + dep[1,z], y = yl + dep[2,z], cex = .7, srt = rot, col = "white", font = 2,
+               parse(text = paste("lambda*'='*", round(lambda[i], 2))))
+        }
+        text(x = xl, y = yl, cex = .7, srt = rot, col = coli,
              parse(text = paste("lambda*'='*", round(lambda[i], 2))))
       }
     }
   }
 
-  points(pts$x, pts$y, pch = 16)
+  points(pts$x, pts$y, pch = 21, bg = 1, col = "white")
 }

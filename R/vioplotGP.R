@@ -153,25 +153,25 @@ vioplotGP <- function(x, gp, weights = NULL, labels = NA, xlab = NA, xlim = NA,
     testdone <- TRUE
   }
   if(testdone) {
-    p.values[p.values>0.05]<-1
-    p.values[p.values!=1]<-0
-    ordre<-order(unlist(lapply(xgp,mean,na.rm=T)))
-    p.values<-p.values[ordre,ordre]
-    p.values<-unique(p.values)
+    p.values[p.values > 0.05] <- 1
+    p.values[p.values != 1] <- 0
+    ordre <- order(tapply(x, gp, mean, na.rm = T))
+    p.values <- p.values[ordre, ordre]
+    p.values <- unique(p.values)
+    p.values <- p.values[apply(p.values, MARGIN = 1, function(x) any(x == 0)),]
 
-    if(nrow(p.values)==0){
-      lettres<-rep("a",ngp)
-      names(lettres)<-levels(gp)
+    if(nrow(p.values) == 0){
+      lettres <- rep("a", ngp)
+      names(lettres) <- levels(gp)
     }else{
-      lettres<-rep("",ngp)
-      k=1
-      while(any(lettres=="")&k<=ngp){
-        lettres[which(p.values[k,k:ngp]==1)+k-1]<-paste0(lettres[which(p.values[k,k:ngp]==1)+k-1],letters[k])
-        k=k+1
+      lettres <- rep("", ngp)
+      for (k in 1:nrow(p.values)){
+        lettres[p.values[k,] == 1] <- paste0(lettres[p.values[k,] == 1], letters[k])
       }
       names(lettres) <- colnames(p.values)
-      lettres<-lettres[match(levels(gp), names(lettres))]
+      lettres <- lettres[match(levels(gp), names(lettres))]
     }
+
     if(type.letters=="greek") {
       greekletters <- c("alpha", "beta", "gamma", "delta", "epsilon","zeta","eta","theta", "iota", "kappa")
       lettres <- lapply(strsplit(lettres, ""), function(X){

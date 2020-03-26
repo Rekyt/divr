@@ -5,8 +5,8 @@
 \title{Plot method for \code{pca} objects}
 \usage{
 \method{plot}{pca}(pca, axes = c(1, 2), xlim = c(-1.2, 1.2),
-  ylim = c(-1.2, 1.2), ind = FALSE, cex.p = 1, las = 1,
-  var.labels = NULL, var.pos = NULL, ...)
+  ylim = c(-1.2, 1.2), ind = FALSE, cex.p = 1, cex.v = 0.8,
+  las = 1, var.labels = NULL, var.pos = NULL, ...)
 }
 \arguments{
 \item{pca}{a \code{pca} object from the \code{dudi.pca} function in \code{ade4}}
@@ -18,6 +18,8 @@
 \item{ind}{logical value to project individuals in the correlation circle using standardized axes}
 
 \item{cex.p}{individuals points size if \code{ind} is TRUE}
+
+\item{cex.v}{variable name size}
 
 \item{las}{text orientation on axes}
 
